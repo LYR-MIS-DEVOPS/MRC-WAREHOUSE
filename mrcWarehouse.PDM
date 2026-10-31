@@ -1,0 +1,417 @@
+[Root]
+Most Recent Package=MRCWAREHOUSE
+
+[Package|MRC WAREHOUSE|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\Package
+
+[Package|MRC WAREHOUSE|Configure DAO ISAMs]
+Applicable=Yes
+Xbase=Yes
+Excel=Yes
+Exchange=Yes
+Text=Yes
+Jet 2.x=Yes
+Lotus=Yes
+Paradox=Yes
+
+[Package|MRC WAREHOUSE|Configure DAO ODBC]
+JetWorkspace=Yes
+ODBCDirect=Yes
+
+[Package|MRC WAREHOUSE|Files Found]
+pg32conv.dll=D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll
+sscsdk80.dll=D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\sscsdk80.dll
+
+[Package|MRC WAREHOUSE|Files Released]
+
+[Package|MRC WAREHOUSE|Missing Dependency Information]
+C:\Windows\System32\MSEXCH35.DLL=
+C:\Windows\System32\lvButton.ocx=
+C:\Windows\System32\ResizeXtra.ocx=
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=
+C:\Windows\System32\P2smon.dll=
+
+[Package|MRC WAREHOUSE|Out-of-Date Dependency Information]
+
+[Package|MRC WAREHOUSE|Files Added]
+
+[Package|MRC WAREHOUSE|Files Removed]
+
+[Package|MRC WAREHOUSE|Files In Project]
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\EXEFILES\MRC Warehouse.exe=Yes
+C:\Windows\System32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Windows\System32\P2smon.dll=Yes
+C:\Program Files\Seagate Software\Viewers\ActiveXViewer\crviewer.dll=Yes
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=Yes
+C:\Program Files\Seagate Software\Report Designer Component\craxddrt.dll=Yes
+C:\Windows\System32\Implode.dll=Yes
+C:\Windows\System32\Crpaig80.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT.DLL=Yes
+C:\Windows\System32\mfc42.dll=Yes
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\sscsdk80.dll=Yes
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll=Yes
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=Yes
+C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL=Yes
+C:\Windows\System32\MSJET35.DLL=Yes
+C:\Windows\System32\MSJTER35.DLL=Yes
+C:\Windows\System32\MSJINT35.DLL=Yes
+C:\Windows\System32\vbajet32.dll=Yes
+C:\Windows\System32\expsrv.dll=Yes
+C:\Windows\System32\MSRD2X35.DLL=Yes
+C:\Windows\System32\MSREPL35.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\Windows\System32\VB5DB.DLL=Yes
+C:\Windows\System32\ResizeXtra.ocx=Yes
+C:\Windows\System32\lvButton.ocx=Yes
+C:\Windows\System32\MSFLXGRD.OCX=Yes
+C:\Windows\System32\MSHFLXGD.OCX=Yes
+C:\Windows\System32\MSSTDFMT.DLL=Yes
+C:\Windows\System32\MSCOMCTL.OCX=Yes
+C:\Windows\System32\TABCTL32.OCX=Yes
+C:\Windows\System32\MSCOMCT2.OCX=Yes
+C:\Windows\System32\Crystl32.OCX=Yes
+C:\Windows\System32\crpe32.dll=Yes
+C:\Windows\System32\MSCHRT20.OCX=Yes
+C:\Windows\System32\MSMASK32.OCX=Yes
+C:\Windows\System32\MSDATLST.OCX=Yes
+C:\Windows\System32\COMDLG32.OCX=Yes
+C:\Windows\System32\MSEXCL35.DLL=Yes
+C:\Windows\System32\MSEXCH35.DLL=Yes
+C:\Windows\System32\MSLTUS35.DLL=Yes
+C:\Windows\System32\MSRDO20.DLL=Yes
+C:\Windows\System32\RDOCURS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\Windows\System32\MSPDOX35.DLL=Yes
+C:\Windows\System32\MSTEXT35.DLL=Yes
+C:\Windows\System32\MSXBSE35.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Windows\System32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|MRC WAREHOUSE|Configure Registry Files]
+Applicable=No
+
+[Package|MRC WAREHOUSE|Configure Remote Servers]
+Applicable=No
+
+[Package|MRC WAREHOUSE|Install Locations]
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\EXEFILES\MRC Warehouse.exe=$(AppPath)
+C:\Windows\System32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\P2smon.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Viewers\ActiveXViewer\crviewer.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Report Designer Component\craxddrt.dll=$(WinSysPath)
+C:\Windows\System32\Implode.dll=$(AppPath)
+C:\Windows\System32\Crpaig80.dll=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT.DLL=$(WinSysPath)
+C:\Windows\System32\mfc42.dll=$(WinSysPath)
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\sscsdk80.dll=$(WinSysPath)
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll=$(AppPath)
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=$(AppPath)
+C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL=$(MSDAOPath)
+C:\Windows\System32\MSJET35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSJTER35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSJINT35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\vbajet32.dll=$(WinSysPathSysFile)
+C:\Windows\System32\expsrv.dll=$(WinSysPathSysFile)
+C:\Windows\System32\MSRD2X35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSREPL35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\VB5DB.DLL=$(WinSysPath)
+C:\Windows\System32\ResizeXtra.ocx=$(WinSysPath)
+C:\Windows\System32\lvButton.ocx=$(WinSysPath)
+C:\Windows\System32\MSFLXGRD.OCX=$(WinSysPath)
+C:\Windows\System32\MSHFLXGD.OCX=$(WinSysPath)
+C:\Windows\System32\MSSTDFMT.DLL=$(WinSysPath)
+C:\Windows\System32\MSCOMCTL.OCX=$(WinSysPath)
+C:\Windows\System32\TABCTL32.OCX=$(WinSysPath)
+C:\Windows\System32\MSCOMCT2.OCX=$(WinSysPath)
+C:\Windows\System32\Crystl32.OCX=$(WinSysPath)
+C:\Windows\System32\crpe32.dll=$(WinSysPath)
+C:\Windows\System32\MSCHRT20.OCX=$(WinSysPath)
+C:\Windows\System32\MSMASK32.OCX=$(WinSysPath)
+C:\Windows\System32\MSDATLST.OCX=$(WinSysPath)
+C:\Windows\System32\COMDLG32.OCX=$(WinSysPath)
+C:\Windows\System32\MSEXCL35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSEXCH35.DLL=$(WinSysPath)
+C:\Windows\System32\MSLTUS35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSRDO20.DLL=$(WinSysPath)
+C:\Windows\System32\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Windows\System32\MSPDOX35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSTEXT35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSXBSE35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\Windows\System32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|MRC WAREHOUSE|Configure Shared Files]
+Applicable=Yes
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\EXEFILES\MRC Warehouse.exe=No
+C:\Windows\System32\Implode.dll=No
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll=No
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+
+[Package|MRC WAREHOUSE|Distribution]
+Type=single
+Size=
+Title=mrcWarehouse
+
+[Package|MRC WAREHOUSE|IconGroups]
+Group0=mrcWarehouse
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|MRC WAREHOUSE|mrcWarehouse]
+Icon1="MRC Warehouse.exe"
+Title1=mrcWarehouse
+StartIn1=$(AppPath)
+Key1=Icon1
+
+
+[Package|MRCWAREHOUSE|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=c:\Program Files\Microsoft Visual Studio\VB98\package mwh
+
+[Package|MRCWAREHOUSE|Configure DAO ISAMs]
+Applicable=Yes
+Jet 2.x=Yes
+
+[Package|MRCWAREHOUSE|Configure DAO ODBC]
+JetWorkspace=Yes
+ODBCDirect=Yes
+
+[Package|MRCWAREHOUSE|Files Found]
+pg32conv.dll=D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll
+sscsdk80.dll=D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\sscsdk80.dll
+
+[Package|MRCWAREHOUSE|Files Released]
+mrcWarhouse-26.04.07=
+
+[Package|MRCWAREHOUSE|Missing Dependency Information]
+C:\Windows\System32\MSEXCH35.DLL=
+C:\Windows\System32\lvButton.ocx=
+C:\Windows\System32\ResizeXtra.ocx=
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=
+C:\Windows\System32\P2smon.dll=
+C:\WINDOWS\system32\craxdrt.dll=
+C:\WINDOWS\system32\craxddrt.dll=
+C:\WINDOWS\system32\crviewer.dll=
+C:\WINDOWS\system32\msstdfmt.dll=
+C:\WINDOWS\system32\MShflxgd.ocx=
+C:\Program Files\Common Files\System\ado\msado25.tlb=
+C:\ProgramData\Olivetti\printers\Pr2\LanPrSetup\COMDLG32.OCX=
+C:\ProgramData\Olivetti\printers\Pr2\LanPrSetup\TABCTL32.OCX=
+C:\Program Files\Microsoft Office\Office15\EXCEL.EXE=
+C:\Program Files\Common Files\microsoft shared\OFFICE15\MSO.DLL=
+C:\Program Files\Common Files\System\ado\msjro.dll=
+
+[Package|MRCWAREHOUSE|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\ComDlg32.OCX=
+C:\WINDOWS\system32\msmask32.ocx=
+C:\WINDOWS\system32\mscomct2.ocx=
+C:\WINDOWS\system32\TabCtl32.Ocx=
+C:\WINDOWS\system32\MSCOMCTL.OCX=
+C:\WINDOWS\system32\msstdfmt.dll=
+C:\WINDOWS\system32\MShflxgd.ocx=
+C:\WINDOWS\system32\MSFlxGrd.ocx=
+C:\WINDOWS\system32\MSRDO20.DLL=
+C:\WINDOWS\system32\msdatlst.ocx=
+C:\Windows\System32\MSCHRT20.OCX=
+
+[Package|MRCWAREHOUSE|Files Added]
+
+[Package|MRCWAREHOUSE|Files Removed]
+
+[Package|MRCWAREHOUSE|Files In Project]
+C:\Windows\System32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Windows\System32\P2smon.dll=Yes
+C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL=Yes
+C:\Windows\System32\MSJET35.DLL=Yes
+C:\Windows\System32\MSJTER35.DLL=Yes
+C:\Windows\System32\MSJINT35.DLL=Yes
+C:\Windows\System32\vbajet32.dll=Yes
+C:\Windows\System32\expsrv.dll=Yes
+C:\Windows\System32\MSRD2X35.DLL=Yes
+C:\Windows\System32\MSREPL35.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\Windows\System32\VB5DB.DLL=Yes
+C:\Windows\System32\ResizeXtra.ocx=Yes
+C:\Windows\System32\lvButton.ocx=Yes
+C:\Windows\System32\MSFLXGRD.OCX=Yes
+C:\Windows\System32\MSHFLXGD.OCX=Yes
+C:\Windows\System32\MSSTDFMT.DLL=Yes
+C:\Windows\System32\MSCOMCTL.OCX=Yes
+C:\Windows\System32\MSCOMCT2.OCX=Yes
+C:\Windows\System32\MSCHRT20.OCX=Yes
+C:\Windows\System32\MSMASK32.OCX=Yes
+C:\Windows\System32\MSDATLST.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Windows\System32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\WINDOWS\system32\craxdrt.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Program Files\Common Files\System\ado\msado25.tlb=Yes
+C:\Windows\System32\MSRDO20.DLL=Yes
+C:\Windows\System32\RDOCURS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\Program Files\Seagate Software\Viewers\ActiveXViewer\crviewer.dll=Yes
+C:\Program Files\Seagate Software\Report Designer Component\craxddrt.dll=Yes
+C:\Windows\System32\Implode.dll=Yes
+C:\Windows\System32\Crpaig80.dll=Yes
+C:\Windows\System32\msvcrt.dll=Yes
+C:\Windows\System32\mfc42.dll=Yes
+\program files\seagate software\shared\SSCSDK80.DLL=Yes
+\program files\seagate software\shared\PG32CONV.DLL=Yes
+C:\Program Files\Common Files\System\ado\msjro.dll=Yes
+C:\Program Files\Common Files\microsoft shared\OFFICE15\MSO.DLL=Yes
+C:\Program Files\Microsoft Office\Office15\EXCEL.EXE=Yes
+C:\Windows\System32\TABCTL32.OCX=Yes
+C:\Windows\System32\COMDLG32.OCX=Yes
+\\192.168.1.132\mis\SHARED FOLDER\SHY\COMPILED (UPDATED)\LMP-Warehouse(v26.04.07).exe=Yes
+
+[Package|MRCWAREHOUSE|Configure Registry Files]
+Applicable=No
+
+[Package|MRCWAREHOUSE|Configure Remote Servers]
+Applicable=No
+
+[Package|MRCWAREHOUSE|Install Locations]
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\EXEFILES\MRC Warehouse.exe=$(AppPath)
+C:\Windows\System32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\P2smon.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Viewers\ActiveXViewer\crviewer.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Report Designer Component\craxddrt.dll=$(WinSysPath)
+C:\Windows\System32\Implode.dll=$(AppPath)
+C:\Windows\System32\Crpaig80.dll=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT.DLL=$(WinSysPath)
+C:\Windows\System32\mfc42.dll=$(WinSysPath)
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\sscsdk80.dll=$(WinSysPath)
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll=$(AppPath)
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=$(AppPath)
+C:\Program Files\Common Files\microsoft shared\DAO\DAO350.DLL=$(MSDAOPath)
+C:\Windows\System32\MSJET35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSJTER35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSJINT35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\vbajet32.dll=$(WinSysPathSysFile)
+C:\Windows\System32\expsrv.dll=$(WinSysPathSysFile)
+C:\Windows\System32\MSRD2X35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSREPL35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\VB5DB.DLL=$(WinSysPath)
+C:\Windows\System32\ResizeXtra.ocx=$(WinSysPath)
+C:\Windows\System32\lvButton.ocx=$(WinSysPath)
+C:\Windows\System32\MSFLXGRD.OCX=$(WinSysPath)
+C:\Windows\System32\MSHFLXGD.OCX=$(WinSysPath)
+C:\Windows\System32\MSSTDFMT.DLL=$(WinSysPath)
+C:\Windows\System32\MSCOMCTL.OCX=$(WinSysPath)
+C:\Windows\System32\TABCTL32.OCX=$(WinSysPath)
+C:\Windows\System32\MSCOMCT2.OCX=$(WinSysPath)
+C:\Windows\System32\Crystl32.OCX=$(WinSysPath)
+C:\Windows\System32\crpe32.dll=$(WinSysPath)
+C:\Windows\System32\MSCHRT20.OCX=$(WinSysPath)
+C:\Windows\System32\MSMASK32.OCX=$(WinSysPath)
+C:\Windows\System32\MSDATLST.OCX=$(WinSysPath)
+C:\Windows\System32\COMDLG32.OCX=$(WinSysPath)
+C:\Windows\System32\MSEXCL35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSEXCH35.DLL=$(WinSysPath)
+C:\Windows\System32\MSLTUS35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSRDO20.DLL=$(WinSysPath)
+C:\Windows\System32\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\Windows\System32\MSPDOX35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSTEXT35.DLL=$(WinSysPathSysFile)
+C:\Windows\System32\MSXBSE35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\Windows\System32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+\\VBOXSVR\Projects\MRC Warehouse.exe=$(AppPath)
+C:\WINDOWS\system32\crviewer.dll=$(WinSysPath)
+C:\WINDOWS\system32\craxddrt.dll=$(WinSysPath)
+C:\WINDOWS\system32\craxdrt.dll=$(WinSysPath)
+C:\1mrcWarehouse\MRC Warehouse.exe=$(AppPath)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Common Files\System\ado\msado25.tlb=$(WinSysPath)
+C:\WINDOWS\system32\msvcrt.dll=$(WinSysPath)
+\program files\seagate software\shared\SSCSDK80.DLL=$(WinSysPath)
+\program files\seagate software\shared\PG32CONV.DLL=$(AppPath)
+D:\SourceCode\1mrcWarehouse\MRC Warehouse.exe=$(AppPath)
+C:\ProgramData\Olivetti\printers\Pr2\LanPrSetup\TABCTL32.OCX=$(WinSysPath)
+C:\ProgramData\Olivetti\printers\Pr2\LanPrSetup\COMDLG32.OCX=$(WinSysPath)
+\\VBOXSVR\Documents\SOURCECODE\MRC Warehouse240723.exe=$(AppPath)
+C:\Program Files\Common Files\System\ado\msjro.dll=$(WinSysPath)
+C:\Program Files\Common Files\microsoft shared\OFFICE15\MSO.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Office\Office15\EXCEL.EXE=$(AppPath)
+\\192.168.1.132\mis\SHARED FOLDER\SHY\COMPILED (UPDATED)\LMP-Warehouse(v26.04.07).exe=$(AppPath)
+
+[Package|MRCWAREHOUSE|Configure Shared Files]
+Applicable=Yes
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\EXEFILES\MRC Warehouse.exe=No
+C:\Windows\System32\Implode.dll=No
+D:\2FILES-PROGRAMMING\UPGRADE\mrcWarehouse\dll\pg32conv.dll=No
+C:\Program Files\Microsoft Office\Office12\EXCEL.EXE=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+\\VBOXSVR\Projects\MRC Warehouse.exe=Yes
+C:\1mrcWarehouse\MRC Warehouse.exe=No
+\program files\seagate software\shared\PG32CONV.DLL=No
+D:\SourceCode\1mrcWarehouse\MRC Warehouse.exe=No
+\\VBOXSVR\Documents\SOURCECODE\MRC Warehouse240723.exe=No
+C:\Program Files\Microsoft Office\Office15\EXCEL.EXE=No
+\\192.168.1.132\mis\SHARED FOLDER\SHY\COMPILED (UPDATED)\LMP-Warehouse(v26.04.07).exe=No
+
+[Package|MRCWAREHOUSE|Distribution]
+Type=single
+Size=
+Title=MRC WAHOUSE PROGRAM
+
+[Package|MRCWAREHOUSE|Package]
+PackageFolder=f:\SOURCECODE\v2 warehouse\1mrcWarehouse\PackageAssemble
+ProjectFolder=\\VBOXSVR\Documents\SOURCECODE\v2 warehouse\1mrcWarehouse
+ServerSideCab=
+File1=f:\SOURCECODE\v2 warehouse\1mrcWarehouse\PackageAssemble\setup.exe
+File2=f:\SOURCECODE\v2 warehouse\1mrcWarehouse\PackageAssemble\Setup.Lst
+File3=f:\SOURCECODE\v2 warehouse\1mrcWarehouse\PackageAssemble\MRC Warehouse240723.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|MRCWAREHOUSE|IconGroups]
+Group0=mrcWarehouse
+PrivateGroup0=False
+Parent0=$(Programs)
+
+[Package|MRCWAREHOUSE|mrcWarehouse]
+Icon1="MRC Warehouse.exe"
+Title1=mrcWarehouse
+StartIn1=$(AppPath)
+Key1=Icon1

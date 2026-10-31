@@ -1,0 +1,94 @@
+Private Sub ShowWarehouseTransferInfo()
+    Dim rsTransfer As New ADODB.Recordset
+    Dim rsTransDtl As New ADODB.Recordset
+    Dim Qry As String, MyITRef As String
+    Dim i As Integer, TtlRec As Integer, Ans As Integer
+    
+    On Error GoTo LocalErr
+    
+    If MainCon.State = adStateClosed Then Call ConnectMain
+'    Qry = "SELECT STOCKTRANSFER.* From STOCKTRANSFER WHERE STOCKTRANSFER.TRANSFERID=" & Val(txtPackingNo.Text) & " and stocktransfer.RECBRANCH = 'MRC 2 WHOLESALE';"
+    Qry = "SELECT stocktransfer.TRANSFERID, sporderbranch.BRANCHNAME, sporderbranch.BRANCHID, sporderbranch.REFERENCE, sporderbranch.ORDERDATE, stocktransfer.DRIVERNAME, stocktransfer.CHECKER, stocktransfer.DATEFINAL, sporderbranch.BRANCHSPOID " & _
+          "From stocktransfer INNER JOIN sporderbranch ON (stocktransfer.BRANCHSPOID = sporderbranch.BRANCHSPOID) " & _
+          "Where stocktransfer.TRANSFERID = " & Val(txtPackingNo.Text) & " and stocktransfer.RECBRANCH = '" & SysBranch & "' Order By stocktransfer.TRANSFERID Desc;"
+
+
+    With rsTransfer
+        .Open Qry, MainCon, adOpenKeyset, adLockOptimistic
+        If .RecordCount > 0 Then
+            
+            txtPONO.Text = IIf(IsNull(!REFERENCE), "", !REFERENCE)
+            cboShipper.Text = IIf(IsNull(!DriverName), "", !DriverName)
+            txtPLDate.Text = IIf(IsNull(Format(!DATEFINAL, "mm/dd/yyyy")), "", Format(!DATEFINAL, "mm/dd/yyyy"))
+            txtBrnSPOID.Text = IIf(IsNull(!branchspoid), "", !branchspoid)
+            txtPicker.Text = IIf(IsNull(!CHECKER), "", !CHECKER)
+        Else
+            MsgBox "Packing Number is not available!", vbCritical, "Receive Packing Number"
+            Exit Sub
+        End If
+        .Close
+    End With
+    If txtPONO.Text <> "" Then
+        'Qry = "SELECT sporder.SPORDERID From sporder Where sporder.REFERENCE = '" & txtPONO.Text & "';"
+        'txtBrnSPOID.Tag = GetFieldValue(Qry)
+        'If Val(txtBrnSPOID.Text) <> Val(txtBrnSPOID.Tag) Then
+        '    txtPONO.Text = ""
+        '    cboShipper.Text = ""
+        '    txtPLDate.Text = ""
+        '    txtBrnSPOID.Text = ""
+        '    Exit Sub
+        'Else
+            Ans = MsgBox("Do you want to load P.O.#" & txtPONO.Text & "?", vbQuestion + vbYesNo, "PO from Warehouse")
+            If Ans = vbNo Then
+                txtPONO.Text = ""
+                cboShipper.Text = ""
+                txtPLDate.Text = ""
+                txtBrnSPOID.Text = ""
+                txtPackingNo.Text = ""
+                Exit Sub
+            End If
+        'End If
+    End If
+    Qry = "SELECT Spitr.OUT, spareparts.PARTNUMBER, spareparts.DESCRIPTION, spitr.SPAREPARTID, spitr.Price, spitr.Cost, spitr.POREF " & _
+          "From spareparts INNER JOIN spitr ON (spareparts.SPAREPARTID = spitr.SPAREPARTID) Where spitr.REFERENCE = 'TR#" & txtPackingNo.Text & "' Order By spitr.SEQNO;"
+    With rsTransDtl
+        .Open Qry, MainCon, adOpenKeyset, adLockOptimistic
+        If .RecordCount > 0 Then
+            flxParts.Rows = 1
+            .MoveFirst
+            Do While Not .EOF       '       1                     2                                        3                     4              5 'good                                 5                                                  6                     7                   8
+                flxParts.AddItem vbTab & !PartNumber & vbTab & !Description & vbTab & IIf(IsNull(!POref), "", !POref) & vbTab & !OUT & vbTab & !OUT
+                flxParts.TextMatrix(flxParts.Rows - 1, 8) = !SPAREPARTID
+                'flxParts.TextMatrix(flxParts.Rows - 1, 13) = !Price
+    '---------------- W/COST
+                flxParts.TextMatrix(flxParts.Rows - 1, 13) = !Cost
+                .MoveNext
+            Loop
+        End If
+        .Close
+    End With
+    With flxParts
+        For i = 1 To .Rows - 1
+            If .TextMatrix(i, 3) <> "" Then
+                Qry = "SELECT SPITR.`ORDER` From SPITR WHERE SPITR.TRANSTYPE='ORDER' AND SPITR.REFERENCE='" & .TextMatrix(i, 3) & "' AND SPITR.SPAREPARTID=" & .TextMatrix(i, 8) & ";"
+                .TextMatrix(i, 14) = GetFieldValue(Qry) 'Order Qty
+                If Val(.TextMatrix(i, 14)) > 0 Then
+                    Qry = "SELECT Sum(SPITR.RECEIVE) AS SumOfRECEIVE From SPITR WHERE SPITR.TRANSTYPE='RECEIVE' AND " & _
+                          "SPITR.SPAREPARTID=" & flxParts.TextMatrix(i, 8) & " AND SPITR.POREF='" & flxParts.TextMatrix(i, 3) & "';"
+                    TtlRec = Val(GetFieldValue(Qry)) + Val(.TextMatrix(i, 4))
+                    .TextMatrix(i, 7) = Val(.TextMatrix(i, 14)) - TtlRec    'Back Order
+                Else
+                    .TextMatrix(i, 7) = 0
+                End If
+            End If
+        Next i
+    End With
+    Call ComputeTotalQty
+    Call ComputeBOqty
+    MainCon.Close
+    LoadFromWarehouse = True
+    Exit Sub
+LocalErr:
+    MsgBox ErrMsg & vbCrLf & Err.Number & " " & Err.Description & vbCrLf & vbCrLf & "Please inform M.I.S. Department", vbCritical + vbOKOnly, "Error"
+
+End Sub

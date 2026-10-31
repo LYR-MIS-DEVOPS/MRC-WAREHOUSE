@@ -1,0 +1,118 @@
+
+        .TextMatrix(0, 1) = "S P A R E P A R T S"
+        .TextMatrix(0, 2) = "S P A R E P A R T S"
+        
+        .TextMatrix(0, 3) = "MOTO-R ULAS"
+        .TextMatrix(0, 4) = "MOTO-R ULAS"
+        .TextMatrix(0, 5) = "MOTO-R ULAS"
+        .TextMatrix(0, 6) = "MOTO-R ULAS"
+        
+        .TextMatrix(0, 7) = "YM MOTORHUB"
+        .TextMatrix(0, 8) = "YM MOTORHUB"
+        .TextMatrix(0, 9) = "YM MOTORHUB"
+        .TextMatrix(0, 10) = "YM MOTORHUB"
+        
+        .TextMatrix(0, 11) = "MCP DEPOT"
+        .TextMatrix(0, 12) = "MCP DEPOT"
+        .TextMatrix(0, 13) = "MCP DEPOT"
+        .TextMatrix(0, 14) = "MCP DEPOT"
+             
+        .TextMatrix(0, 15) = "VAN I"
+        .TextMatrix(0, 16) = "VAN I"
+        .TextMatrix(0, 17) = "VAN I"
+        .TextMatrix(0, 18) = "VAN I"
+             
+        .TextMatrix(0, 19) = "VAN II"
+        .TextMatrix(0, 20) = "VAN II"
+        .TextMatrix(0, 21) = "VAN II"
+        .TextMatrix(0, 22) = "VAN II"
+             
+        .TextMatrix(0, 23) = "MRC PANABO"
+        .TextMatrix(0, 24) = "MRC PANABO"
+        .TextMatrix(0, 25) = "MRC PANABO"
+        .TextMatrix(0, 26) = "MRC PANABO"
+                  
+        .TextMatrix(0, 27) = "POLOMOLOK"
+        .TextMatrix(0, 28) = "POLOMOLOK"
+        .TextMatrix(0, 29) = "POLOMOLOK"
+        .TextMatrix(0, 30) = "POLOMOLOK"
+                  
+        .TextMatrix(0, 31) = "MRC SOBRECARY"
+        .TextMatrix(0, 32) = "MRC SOBRECARY"
+        .TextMatrix(0, 33) = "MRC SOBRECARY"
+        .TextMatrix(0, 34) = "MRC SOBRECARY"
+        
+        .TextMatrix(0, 35) = "MRC GENSAN"
+        .TextMatrix(0, 36) = "MRC GENSAN"
+        .TextMatrix(0, 37) = "MRC GENSAN"
+        .TextMatrix(0, 38) = "MRC GENSAN"
+        
+        .TextMatrix(0, 39) = "BRANCH TOTAL"
+        .TextMatrix(0, 40) = "BRANCH TOTAL"
+        .TextMatrix(0, 41) = "BRANCH TOTAL"
+        .TextMatrix(0, 42) = "BRANCH TOTAL"
+             
+        .TextMatrix(0, 43) = "MRC WAREHOUSE"
+        .TextMatrix(0, 44) = "MRC WAREHOUSE"
+        .TextMatrix(0, 45) = "MRC WAREHOUSE"
+             
+        
+        .TextMatrix(0, 46) = "PURCHASE ORDER"
+        .TextMatrix(0, 47) = "PURCHASE ORDER"
+        .TextMatrix(0, 48) = "PURCHASE ORDER"
+        .TextMatrix(0, 49) = "PURCHASE ORDER"
+        .TextMatrix(0, 50) = "PURCHASE ORDER"
+        
+        
+        'moto-r Ulas
+        .TextMatrix(1, 1) = "PARTNUMBER"
+        .TextMatrix(1, 2) = "DESCRIPTION"
+        .TextMatrix(1, 3) = "QH"
+        .TextMatrix(1, 4) = "BO"
+        .TextMatrix(1, 5) = "SQ"
+        .TextMatrix(1, 6) = "ST"
+        'Yamaha Motorhub
+        .TextMatrix(1, 7) = "QH"
+        .TextMatrix(1, 8) = "BO"
+        .TextMatrix(1, 9) = "SQ"
+        .TextMatrix(1, 10) = "ST"
+        'MC Parts Depot
+        .TextMatrix(1, 11) = "QH"
+        .TextMatrix(1, 12) = "BO"
+        .TextMatrix(1, 13) = "SQ"
+        .TextMatrix(1, 14) = "ST"
+        'VAN I
+        .TextMatrix(1, 15) = "QH"
+        .TextMatrix(1, 16) = "BO"
+        .TextMatrix(1, 17) = "SQ"
+        .TextMatrix(1, 18) = "ST"
+        'VAN II
+        .TextMatrix(1, 19) = "QH"
+        .TextMatrix(1, 20) = "BO"
+        .TextMatrix(1, 21) = "SQ"
+        .TextMatrix(1, 22) = "ST"
+        
+        'PANABO
+        .TextMatrix(1, 23) = "QH"
+        .TextMatrix(1, 24) = "BO"
+        .TextMatrix(1, 25) = "SQ"
+        .TextMatrix(1, 26) = "ST"
+        
+        'POLOMOLOK
+        .TextMatrix(1, 27) = "QH"
+        .TextMatrix(1, 28) = "BO"
+        .TextMatrix(1, 29) = "SQ"
+        .TextMatrix(1, 30) = "ST"
+        
+        'SOBRECARY
+        .TextMatrix(1, 31) = "QH"
+        .TextMatrix(1, 32) = "BO"
+        .TextMatrix(1, 33) = "SQ"
+        .TextMatrix(1, 34) = "ST"
+        
+        'GENSAN
+        .TextMatrix(1, 35) = "QH"
+        .TextMatrix(1, 36) = "BO"
+        .TextMatrix(1, 37) = "SQ"
+        .TextMatrix(1, 38) = "ST"
+        

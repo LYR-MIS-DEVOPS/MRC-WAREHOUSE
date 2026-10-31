@@ -1,0 +1,4 @@
+6:30 monday - stock transfer
+6:30 tuesday - stock transfer/useraccess
+6:30 wednesday - useraccess
+6:30 thursday - back order

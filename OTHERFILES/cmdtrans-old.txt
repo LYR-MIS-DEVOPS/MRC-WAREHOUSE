@@ -1,0 +1,61 @@
+Dim Ans As Integer
+    Select Case Index
+        Case 0
+            Call ClearEntries
+            BtnIndx = 5
+            tmrFloat.Enabled = True
+            cmdLoadPO.Enabled = True
+            fmHeader.Enabled = True
+            flxSP.Enabled = True
+            txtDateServe = Format(Date, "mm/dd/yyyy")
+            cbodrtype.Text = "(04) - STOCK"
+            AddNew = True: isEdit = False
+        Case 1
+            If txtbranch.Text = "" Then
+                MsgBox ("No Records to Edit"), vbExclamation, "Edit"
+                Exit Sub
+            End If
+            BtnIndx = 5
+            cmdLoadPO.Enabled = True
+            tmrFloat.Enabled = True
+            fmHeader.Enabled = True
+            flxSP.Enabled = True
+            isEdit = True
+        Case 2
+            FrmSummary.mySrc = "Branch Purchase Order"
+            FrmSummary.Show
+            Unload Me
+        Case 3
+            Call PopupMenu(mnuprinting)
+        Case 4
+            SPUPDATEPO.Show 1
+        Case 5
+            Unload Me
+'            MotoRep.tbMain.Visible = True
+        Case 6
+            If AddNew Then
+                Ans = MsgBox("Save Order Taking Records?", vbQuestion + vbYesNo, "Save")
+                If Ans = vbNo Then AddNew = False: Exit Sub
+                Call SaveBranchOrder
+                AddNew = False
+            Else
+                Ans = MsgBox("Update Order Taking Records?", vbQuestion + vbYesNo, "Save")
+                If Ans = vbNo Then Exit Sub
+                Call SaveBranchOrder
+            End If
+                BtnIndx = 7
+                tmrFloatRev.Enabled = True
+                fmHeader.Enabled = False
+                flxSP.Enabled = False
+        Case 7
+            If lblstatus.Caption <> "" And Not AddNew Then
+                Call ShowRecordOT(myOrderIDSQ)
+            Else
+                Call ClearEntries
+            End If
+            cmdLoadPO.Enabled = False
+            BtnIndx = 7
+            tmrFloatRev.Enabled = True
+            AddNew = False
+           
+    End Select

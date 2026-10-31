@@ -1,0 +1,13 @@
+BRANCH MAX SP ORDER ID
+
+SELECT 
+  sporderbranch.BRANCHID,
+  sporderbranch.BRANCHNAME,
+  MAX(sporderbranch.BRANCHSPOID) AS MAXSPOID
+FROM
+  sporderbranch
+GROUP BY
+  sporderbranch.BRANCHID,
+  sporderbranch.BRANCHNAME
+ORDER BY
+  sporderbranch.BRANCHID

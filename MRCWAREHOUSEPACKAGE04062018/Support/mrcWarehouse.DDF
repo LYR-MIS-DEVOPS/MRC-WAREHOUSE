@@ -1,0 +1,58 @@
+.OPTION EXPLICIT
+.Set Cabinet=off
+.Set Compress=off
+.Set MaxDiskSize=CDROM
+.Set ReservePerCabinetSize=6144
+.Set DiskDirectoryTemplate=".."
+.Set CompressionType=MSZIP
+.Set CompressionLevel=7
+.Set CompressionMemory=21
+.Set CabinetNameTemplate="MRC Warehouse.CAB"
+"Setup.Lst"
+"setup.exe"
+.Set Cabinet=on
+.Set Compress=on
+"MRC Warehouse.exe"
+"msvbvm60.dll"
+"oleaut32.dll"
+"olepro32.dll"
+"asycfilt.dll"
+"stdole2.tlb"
+"COMCAT.DLL"
+"P2smon.dll"
+"msado25.tlb"
+"crviewer.dll"
+"craxdrt.dll"
+"craxddrt.dll"
+"Implode.dll"
+"Crpaig80.dll"
+"msvcrt.dll"
+"mfc42.dll"
+"SSCSDK80.DLL"
+"PG32CONV.DLL"
+"EXCEL.EXE"
+"DAO350.DLL"
+"MSJET35.DLL"
+"MSJTER35.DLL"
+"MSJINT35.DLL"
+"vbajet32.dll"
+"expsrv.dll"
+"MSRD2X35.DLL"
+"MSREPL35.DLL"
+"MSVCRT40.DLL"
+"VB5DB.DLL"
+"ResizeXtra.ocx"
+"lvButton.ocx"
+"MSFLXGRD.OCX"
+"MSHFLXGD.OCX"
+"MSSTDFMT.DLL"
+"MSCOMCTL.OCX"
+"TABCTL32.OCX"
+"MSCOMCT2.OCX"
+"MSCHRT20.OCX"
+"MSMASK32.OCX"
+"MSDATLST.OCX"
+"comdlg32.ocx"
+"SETUP1.EXE"
+"VB6STKIT.DLL"
+"ST6UNST.EXE"

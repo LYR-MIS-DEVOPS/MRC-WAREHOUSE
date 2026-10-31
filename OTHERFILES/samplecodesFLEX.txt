@@ -1,0 +1,20 @@
+Dim rsPOdetails As New ADODB.Recordset
+Dim rsSPdetails As New ADODB.Recordset
+Qry = "SELECT spbranchdtl.SPAREPARTID, spareparts.PARTNUMBER, spareparts.DESCRIPTION, spbranchdtl.BQTYONHAND, spbranchdtl.`ORDER`, spbranchdtl.ORDERBAL, " & _
+            "spareparts.COST, spbranchdtl.ALLOCATEDQTY, spareparts.QTYONHAND, spareparts.BACKORDER, spareparts.LOCATION, spbranchdtl.REFERENCE, spbranchdtl.BRANCHSPOID " & _
+            "From spbranchdtl INNER JOIN spareparts ON (spbranchdtl.SPAREPARTID = spareparts.SPAREPARTID) " & _
+            "Where spbranchdtl.REFERENCE = '" & refnumber & "' AND spbranchdtl.BRANCHSPOID = " & bOrderID & ";"
+            
+    With rsSPdetails
+        .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+         If .RecordCount > 0 Then
+                
+                flxSP.Rows = 2
+                .MoveFirst
+                            Do While Not .EOF
+                                flxSP.AddItem vbTab & !PartNumber & vbTab & !Description & vbTab & !QtyOnHand & vbTab & Val(GETSUMofALQ(!SparepartID)) & vbTab & IIf(Format(!QtyOnHand >= GETSUMofALQ(!SparepartID)), Val(!QtyOnHand - GETSUMofALQ(!SparepartID)), !QtyOnHand) & vbTab & !BQTYONHAND & vbTab & !ORDERBAL & vbTab & !Order & vbTab & !ALLOCATEDQTY & vbTab & Format(!Cost, "###0.00") & vbTab & Format(!ALLOCATEDQTY * !Cost, "###0.00") & vbTab & IIf(!Location = "", "NO LOCATION", !Location) & vbTab & !SparepartID & vbTab & !REFERENCE
+                                .MoveNext
+                                DoEvents
+                            Loop
+            End If
+    End With

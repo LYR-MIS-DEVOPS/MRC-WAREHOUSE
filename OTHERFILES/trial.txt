@@ -1,0 +1,168 @@
+Function GetRowInv(M As Integer) As Integer
+    Dim X As Integer
+    
+    With flxSavePO
+        For X = 1 To .Rows - 1
+            If .TextMatrix(X, 0) = flxPO.TextMatrix(M, 0) And Trim(.TextMatrix(X, 1)) = Trim(flxPO.TextMatrix(M, 1)) Then  'Brand & Model in FlxIN = Brand & Model in FlxCB
+                GetRowInv = X
+                Exit Function
+            End If
+        Next X
+    End With
+    GetRowInv = 0
+End Function
+
+Function GetRowSell(M As Integer) As Integer
+    Dim X As Integer
+    
+    With flxSavePO
+        For X = 1 To .Rows - 1
+            If .TextMatrix(X, 0) = flxPO.TextMatrix(M, 0) And Trim(.TextMatrix(X, 1)) = Trim(flxPO.TextMatrix(M, 1)) Then  'Brand & Model in FlxIN = Brand & Model in FlxCB
+                GetRowSell = X
+                Exit Function
+            End If
+        Next X
+    End With
+    GetRowSell = 0
+End Function
+
+
+Public Sub UpdatePO()
+
+    Dim rsPO As New ADODB.Recordset
+    Dim Qry As String, MxMdl As Integer, i As Integer, j As Integer, InvRow As Integer, PbV As Integer
+    Dim BlnkInv As Boolean
+    
+    pBar.Value = 0
+
+
+    pBar.Max = 20000
+    
+    'Qry = "SELECT sporder.REFERENCE, sporder.`STATUS`, sporder.ORDERDATE " & _
+               ' "From sporder Where sporder.`STATUS` = 'NEW' AND sporder.CONFIRMNO IS NULL AND sporder.ORDERDATE > '2011/07/01';"
+    Qry = "SELECT sporder.REFERENCE, sporder.ORDERTYPE, sporder.ORDERDATE, sporder.CONFIRMNO, sporder.`STATUS`, sporder.QTYPN, sporder.QTYORDER " & _
+            "From sporder Where sporder.`STATUS` = 'NEW' AND sporder.CONFIRMNO IS NULL AND sporder.ORDERDATE > '2011/07/01';"
+     
+    With rsPO
+        If LYRcon.State = adStateOpen Then
+            LYRcon.Close
+            LYRcon.Open "dsn=sqlmcpdepotlocal"
+            txtBranch.Text = "MC Depot Toril"
+        End If
+                
+        .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+        If .RecordCount > 0 Then
+            .MoveFirst
+            flxPO.Rows = 1
+            Do While Not .EOF
+                flxPO.AddItem txtBranch.Text & vbTab & !REFERENCE & vbTab & !Status & vbTab & !ORDERDATE & vbTab & !QTYPN & vbTab & !QTYORDER
+                .MoveNext
+            Loop
+           
+        Else
+            flxPO.Rows = 1
+        End If
+        .Close
+    End With
+    With flxPO
+        If .Rows > 1 Then
+            If .Rows >= 1000 Then PbV = 1 Else PbV = 1000 \ .Rows
+            For i = 1 To .Rows - 1
+                InvRow = GetRowSell(i)
+                If InvRow = 0 Then
+                    flxSavePO.AddItem .TextMatrix(i, 0) & vbTab & .TextMatrix(i, 1)
+                    flxSavePO.TextMatrix(flxSavePO.Rows - 1, flxSavePO.Cols - 1) = .TextMatrix(i, 2)
+                    flxSavePO.TextMatrix(flxSavePO.Rows - 1, 2) = .TextMatrix(i, 3)
+                Else
+                    flxSavePO.TextMatrix(InvRow, 2) = .TextMatrix(i, 3)
+                End If
+                If i < 1000 Then
+                    pBar.Value = pBar.Value + PbV
+                    DoEvents
+                End If
+            Next i
+        Else
+            pBar.Value = pBar.Value + 1000
+            DoEvents
+        End If
+    End With
+    
+End Sub
+
+
+Private Sub Form_Load()
+    Call UpdatePO
+End Sub
+
+
+-------------------------------------------------------------------------------
+ulas
+
+With rsUPO
+        'Select Order table from Branches
+            
+        Qry = "SELECT sporder.REFERENCE, sporder.ORDERTYPE, sporder.ORDERDATE, sporder.CONFIRMNO, sporder.`STATUS`, sporder.QTYPN, sporder.QTYORDER " & _
+            "From sporder Where sporder.`STATUS` = 'NEW' AND sporder.CONFIRMNO IS NULL AND sporder.ORDERDATE > '2011/07/01';"
+     
+          
+        If .State = adStateOpen Then .Close
+        
+        'Select Branches to open
+        'If txtBranch1.Text = "MCP DEPOT TORIL" Then
+            'txtBranchName.Text = txtBranch1.Text
+            'If ConnectToril Then
+              '  TorilConnect = True
+             '       If TorilConnect Then
+            '            .Open Qry, conToril, adOpenStatic, adLockOptimistic
+           '         End If
+          '  Else
+         '       TorilConnect = False
+        'End If
+            
+        If txtBranch2.Text = "MRC Ulas" Then
+            txtBranchName.Text = txtBranch2.Text
+            If ConnectUlas Then
+                UlasConnect = True
+                    If UlasConnect Then
+                        .Open Qry, conUlas, adOpenStatic, adLockOptimistic
+                    End If
+            Else
+                UlasConnect = False
+            End If
+         End If
+        
+        If .RecordCount = 0 Then: Exit Sub
+        .MoveFirst
+        flxPO.Rows = 1
+        flxSavePO.Rows = 1
+        'Add P.O record to flex
+        pBar.Visible = True
+        pBar.Value = 0
+        pBar.Max = .RecordCount
+        .MoveFirst
+        For iRw = 1 To .RecordCount
+                'flxMain.AddItem !ORDERDATE & vbTab & cmbBranch.Text & vbTab & !REFERENCE & vbTab & !ORDERTYPE
+                flxPO.AddItem txtBranchName.Text & vbTab & !REFERENCE & vbTab & !Status & vbTab & !ORDERDATE & vbTab & !QTYPN & vbTab & !QTYORDER
+                
+                'Verify records if already added
+                Qry = "SELECT * From sporderbranch where sporderbranch.REFERENCE = '" & flxPO.TextMatrix(iRw, 2) & "';"
+                If rsChk.State = adStateOpen Then rsChk.Close
+                rsChk.Open Qry, LYRcon, adOpenStatic, adLockOptimistic
+                If rsChk.RecordCount = 0 Then
+                     'Add record if not Addedd
+                     flxSavePO.AddItem vbTab & !ORDERDATE & vbTab & txtBranchName.Text & vbTab & !REFERENCE & vbTab & !ORDERTYPE
+                 End If
+             .MoveNext
+              pBar.Value = pBar.Value + 1
+              'PrcntRec = PrgBar.Value / PrgBar.Max
+              'lblp.Caption = Format(PrcntRec, "###%")
+              
+        Next iRw
+        
+        'lblp.Caption = Format(PrcntRec, "100%")
+        pBar.Visible = False
+        'lblp.Visible = False
+        
+        'Call FormatFlxAdd
+    End With
+    

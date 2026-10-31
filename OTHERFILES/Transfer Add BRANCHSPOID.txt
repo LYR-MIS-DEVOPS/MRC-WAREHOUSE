@@ -1,0 +1,150 @@
+
+Private Sub SaveTransfer()
+
+Dim MyBranch As String, MyDate As String, QryRec As String
+Dim TransID As Integer
+
+    MyDate = Format(Now, "YYYY-MM-DD HH:MM:SS")
+    MyBranch = Replace(cboBranch.Text, "'", "`")
+    
+    If AddNew Then
+        
+        If txtStatus.Text = "PICKING" Then
+            LYRcon.Execute "UPDATE sporderbranch SET `STATUS` = 'PACKING' WHERE sporderbranch.REFERENCE = '" & cboPO.Text & "';"
+            Call GetStatus
+        End If
+            
+            LYRcon.Execute "INSERT INTO stocktransfer(RECBRANCH, TRANSDATE, ADDRESS, PONO, BRANCHSPOID, PREPBY, APRVBY, REMARKS, `STATUS`, UPDATEDBY, LASTUPDATE) " & _
+                        "VALUES('" & MyBranch & "', '" & Format(txtDate.Text, "yyyy-mm-dd") & "', " & _
+                        "'" & Replace(txtAddress.Text, "'", "`") & "', '" & cboPO.Text & "', " & Val(cboPO.ItemData(cboPO.ListIndex)) & ", '" & txtPrepBy.Text & "', " & _
+                        "'" & txtAprvBy.Text & "', '" & txtRemarks.Text & "', '" & txtStatus.Text & "', '" & UserID & "', '" & MyDate & "');"
+             
+            QryRec = "SELECT STOCKTRANSFER.TRANSFERID From STOCKTRANSFER " & _
+            "WHERE STOCKTRANSFER.RECBRANCH='" & MyBranch & "' AND STOCKTRANSFER.LASTUPDATE='" & Format(MyDate, "yyyy-mm-dd hh:mm:ss") & "';"
+            
+            TransID = GetFieldValue(QryRec)
+            txtRefNo.Text = IIf(Len(Str(TransID)) >= 4, TransID, Format(TransID, "0000"))
+    End If
+
+End Sub
+
+
+
+Public Sub ShowRecord(MyRef As Long)
+    
+    Dim rsTransfer As New ADODB.Recordset
+    Dim rsTransDtl As New ADODB.Recordset
+    Dim Qry As String, MyITRef As String
+    Dim TtlCost As Currency, i As Integer, MyCost As Currency
+    
+    
+    cmdCheck.Enabled = True
+    Call ClearEntries
+    'Qry = "SELECT STOCKTRANSFER.* From STOCKTRANSFER WHERE (((STOCKTRANSFER.TRANSFERID)=" & MyRef & "));"
+    'mySQL
+    
+    Qry = "SELECT STOCKTRANSFER.* From STOCKTRANSFER WHERE STOCKTRANSFER.TRANSFERID=" & MyRef & ";"
+    
+    With rsTransfer
+        .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+        If .RecordCount > 0 Then
+            .MoveFirst
+            cboBranch.Text = !RECBRANCH
+            txtAddress.Text = !Address
+     	    txtSQSERVE.Text = IIf(IsNull(!SQSERVE), "", !SQSERVE)
+       ' >>>>NEW     
+            cboPO.AddItem IIf(IsNull(!PoNo), "", !PoNo)
+            cboPO.ItemData(cboPO.ListCount - 1) = IIf(IsNull(!BRANCHSPOID), 0, !BRANCHSPOID)
+            cboPO.ListIndex = 0
+       ' >>>>NEW END HERE   
+            txtRefNo.Text = IIf(Len(Str(!TRANSFERID)) >= 4, !TRANSFERID, Format(!TRANSFERID, "0000"))
+            txtDate.Text = Format(!TRANSDATE, "MM/DD/YYYY")
+            txtRemarks.Text = IIf(IsNull(!Remarks), "", !Remarks)
+            txtStatus.Text = !Status
+            'txtRemarks.Text = IIf(!Status <> "CANCELLED", !Remarks, "CANCELLED")
+            txtPrepBy.Text = !PREPBY
+            txtAprvBy.Text = !APRVBY
+            txtTotal.Text = Format$(!TOTALCOST, "#,##0.00")
+        End If
+        .Close
+    End With
+    
+    If txtStatus.Text = "INTRANSIT" Then
+        
+        Qry = "SELECT Spitr.OUT, spareparts.PARTNUMBER, spareparts.DESCRIPTION, spitr.SPAREPARTID, spitr.Price " & _
+            "From spareparts INNER JOIN spitr ON (spareparts.SPAREPARTID = spitr.SPAREPARTID) Where spitr.REFERENCE = '" & cboPO.Text & "';"
+                With rsTransDtl
+                    .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+                        If .RecordCount > 0 Then
+                            flxOrd.Rows = 1
+                            .MoveFirst
+                                Do While Not .EOF
+                                    flxOrd.AddItem !OUT & vbTab & IIf(Val(!OUT) >= 2, "PCS.", "PC.") & vbTab & !PartNumber & vbTab & !Description & vbTab & vbTab & vbTab & !SPAREPARTID & vbTab & !Price
+                                    .MoveNext
+                                    DoEvents
+                                Loop
+                        End If
+                    .Close
+                End With
+                    Call GetStatus
+        
+    Else
+        '>>>>> NEW QRY
+        Qry = "SELECT spbranchdtl.ALLOCATEDQTY, spareparts.PARTNUMBER, spareparts.DESCRIPTION, spbranchdtl.BQTYONHAND, spbranchdtl.SPAREPARTID, spareparts.STOREPRICE " & _
+            "From spbranchdtl INNER JOIN spareparts ON (spbranchdtl.SPAREPARTID = spareparts.SPAREPARTID) Where spbranchdtl.REFERENCE = '" & cboPO.Text & "' AND spbranchdtl.BRANCHSPOID = " & Val(cboPO.ItemData(cboPO.ListIndex)) & ";"
+                With rsTransDtl
+                    .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+                        If .RecordCount > 0 Then
+                            flxOrd.Rows = 1
+                            .MoveFirst
+                                Do While Not .EOF
+                                    flxOrd.AddItem !ALLOCATEDQTY & vbTab & IIf(Val(!ALLOCATEDQTY) >= 2, "PCS.", "PC.") & vbTab & !PartNumber & vbTab & !Description & vbTab & !BQTYONHAND & vbTab & vbTab & !SPAREPARTID & vbTab & !StorePrice
+                                    .MoveNext
+                                    DoEvents
+                                Loop
+                        End If
+                    .Close
+                End With
+                    Call GetStatus
+    End If
+     
+        If Val(Replace(txtTotal.Text, ",", "")) <> TtlCost Then
+            LYRcon.Execute "UPDATE STOCKTRANSFER SET STOCKTRANSFER.TOTALCOST = " & TtlCost & " WHERE STOCKTRANSFER.TRANSFERID=" & Val(txtRefNo.Text) & ";"
+            txtTotal.Text = Format(TtlCost, "#,##0.00")
+        End If
+    
+        If chkFinal.Value = 1 Then
+            MyITRef = "TR#" & Val(txtRefNo.Text)
+            TtlCost = 0
+        For i = 1 To flxOrd.Rows - 1
+            MyCost = Val(Replace(flxOrd.TextMatrix(i, 7), ",", ""))
+            If MyCost = 0 Then  'getcost
+                'Qry = "SELECT SPAREPARTS.COST From SPAREPARTS WHERE (((SPAREPARTS.SPAREPARTID)=" & Val(flxOrd.TextMatrix(i, 10)) & "));"
+                'mySQL
+                'Qry = "SELECT SPAREPARTS.COST From SPAREPARTS WHERE SPAREPARTS.SPAREPARTID=" & Val(flxOrd.TextMatrix(i, 10)) & ";"
+                Qry = "SELECT SPAREPARTS.COST From SPAREPARTS WHERE SPAREPARTS.SPAREPARTID=" & Val(flxOrd.TextMatrix(i, 11)) & ";"
+                
+                MyCost = Val(GetFieldValue(Qry))
+                If MyCost > 0 Then
+                    If Val(txtVat.Text) > 0 Then MyCost = MyCost * (1 + (Val(txtVat.Text) / 100))
+                    
+                    flxOrd.TextMatrix(i, 7) = Format(MyCost, "#,##0.00") 'COST
+                    'flxOrd.TextMatrix(i, 8) = Format(Val(flxOrd.TextMatrix(i, 2)) * MyCost, "#,##0.00")
+                    flxOrd.TextMatrix(i, 9) = Format(Val(flxOrd.TextMatrix(i, 2)) * MyCost, "#,##0.00")
+                    'LYRcon.Execute "UPDATE SPITR SET SPITR.PRICE = " & MyCost & " WHERE (((SPITR.SPAREPARTID)=" & Val(flxOrd.TextMatrix(i, 10)) & ") AND ((SPITR.REFERENCE)='" & MyITRef & "') AND ((SPITR.REMARKS)='TRANSFER'));"
+                    'mySQL
+                    LYRcon.Execute "UPDATE SPITR SET SPITR.PRICE = " & MyCost & " WHERE SPITR.SPAREPARTID=" & Val(flxOrd.TextMatrix(i, 11)) & " AND SPITR.REFERENCE='" & MyITRef & "' AND SPITR.REMARKS='TRANSFER';"
+                End If
+            End If
+            TtlCost = TtlCost + (MyCost * Val(flxOrd.TextMatrix(i, 2)))
+        Next i
+        If Val(Replace(txtTotal.Text, ",", "")) <> TtlCost Then
+            'LYRcon.Execute "UPDATE STOCKTRANSFER SET STOCKTRANSFER.TOTALCOST = " & TtlCost & " WHERE (((STOCKTRANSFER.TRANSFERID)=" & Val(txtRefNo.Text) & "));"
+            'mySQL
+            LYRcon.Execute "UPDATE STOCKTRANSFER SET STOCKTRANSFER.TOTALCOST = " & TtlCost & " WHERE STOCKTRANSFER.TRANSFERID=" & Val(txtRefNo.Text) & ";"
+            
+            txtTotal.Text = Format(TtlCost, "#,##0.00")
+        End If
+    End If
+    
+End Sub

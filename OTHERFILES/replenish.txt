@@ -1,0 +1,340 @@
+Private Sub cmdReplenish_Click()
+    Dim rsRpnsh As New ADODB.Recordset
+
+    Dim Qry As String, r As Long, spSOQ As Double, rM As Long
+    Dim Ulas6M As Double, Yamaha6M As Double, Toril6M As Double, Van16M As Double, Van26M As Double
+    Dim Mrc16m As Double, Panabo6M As Double, BinosPol6M As Double, GenSan6M As Double
+    
+    cmdReplenish.Enabled = False
+    cmdInsert.Enabled = False
+    cmdOK.Enabled = False
+    cmdCancel.Enabled = False
+    Call ResizeCompleteHead
+    Call CollAlign
+    If txtSuppCode.Text = "" Then
+        Qry = "SELECT SPAREPARTS.PARTNUMBER, SPAREPARTS.DESCRIPTION, SPAREPARTS.QTYONHAND, SPAREPARTS.BACKORDER, SPAREPARTS.SALES, SPAREPARTS.COST, SPAREPARTS.SPAREPARTID, SPAREPARTS.APPLICMODEL, SPAREPARTS.DESCRIPTION2 AS MYSTAT " & _
+              "From SPAREPARTS WHERE SPAREPARTS.QTYONHAND" & lblOprQH.Caption & Val(txtQH.Text) & " AND SPAREPARTS.BACKORDER" & lblOprBO.Caption & Val(txtBO.Text) & " AND SPAREPARTS.DESCRIPTION NOT LIKE '%INACTIVE%' ORDER BY SPAREPARTS.PARTNUMBER;"
+    Else
+        Qry = "SELECT SPAREPARTS.PARTNUMBER, SPAREPARTS.DESCRIPTION, SPAREPARTS.QTYONHAND, SPAREPARTS.BACKORDER, SPAREPARTS.SALES, SPAREPARTS.COST, SPAREPARTS.SPAREPARTID, SPAREPARTS.APPLICMODEL, SPAREPARTS.DESCRIPTION2 AS MYSTAT " & _
+              "From SPAREPARTS WHERE SPAREPARTS.QTYONHAND" & lblOprQH.Caption & Val(txtQH.Text) & " AND SPAREPARTS.BACKORDER" & lblOprBO.Caption & Val(txtBO.Text) & " AND SPAREPARTS.SUPPLIERCODE='" & txtSuppCode.Text & "' ORDER BY SPAREPARTS.PARTNUMBER;"
+    End If
+    
+    With rsRpnsh
+        .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+        If .RecordCount > 0 Then
+            .MoveFirst
+            flxSP.Rows = 0
+            Pbar.Value = 0
+            Pbar.Visible = True
+            Pbar.Max = .RecordCount * 2
+            .MoveFirst
+            For rM = 1 To .RecordCount                              'LOAD SPAREPARTS INFO OF MOTO-R GANTE
+                    flxSP.Rows = rM
+                    flxSP.TextMatrix(rM - 1, 1) = !PartNumber
+                    flxSP.TextMatrix(rM - 1, 2) = !Description
+                    flxSP.TextMatrix(rM - 1, 43) = !QtyOnHand
+                    flxSP.TextMatrix(rM - 1, 44) = IIf(IsNull(!BACKORDER), "", !BACKORDER)
+                    flxSP.TextMatrix(rM - 1, 49) = Format(!Cost, "#,##0.00")
+                    flxSP.TextMatrix(rM - 1, 50) = IIf(IsNull(!ApplicModel), "", !ApplicModel)
+                    flxSP.TextMatrix(rM - 1, 75) = !SPAREPARTID
+                    flxSP.TextMatrix(rM - 1, 52) = IIf(IsNull(!MyStat), "", !MyStat)
+                    Pbar.Value = Pbar.Value + 1
+                .MoveNext
+            Next rM
+            
+            flxSP.Visible = True
+            If ShowOpt Then
+                flxSPH.Top = FrameOpt.Top + FrameOpt.Height
+                flxSP.Top = FrameOpt.Top + FrameOpt.Height + flxSPH.Height
+            Else
+                flxSPH.Top = cmdOptHide.Top + cmdOptHide.Height + 100
+                flxSP.Top = FrameOpt.Height + flxSPH.Height
+            End If
+            cmdInsert.Top = flxSP.Top + flxSP.Height + 120
+            cmdOK.Top = flxSP.Top + flxSP.Height + 120
+            cmdCancel.Top = flxSP.Top + flxSP.Height + 120
+            Pbar.Top = flxSP.Top + flxSP.Height
+            'Me.Height = fmAnotation.Height + cmdOK.Top + cmdOK.Height + 580
+           
+        Else
+            flxSP.Clear
+            flxSP.Rows = 1
+        End If
+        .Close
+    End With
+    
+    If flxSP.Rows = 1 And flxSP.TextMatrix(0, 1) = "" Then Exit Sub
+    
+   
+    For i = flxSP.Rows - 1 To 0 Step -1
+        'Main Branch
+        flxSP.TextMatrix(i, 45) = GetSalesQty(Val(flxSP.TextMatrix(i, 75)))
+        
+        
+        '----------------------------------------------------------
+        '** Stock Transfer - Order Taking
+        'Moto-r Ulas
+        'Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+              "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(i, 28)) & " AND SPITR.SOURCE='MOTO-R ULAS';"
+        'flxSP.TextMatrix(i, 22) = Val(GetFieldValue(Qry))
+        'Yamaha Motorhub
+        'Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+              "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(i, 28)) & " AND SPITR.SOURCE='YAMAHA MOTORHUB';"
+        'flxSP.TextMatrix(i, 23) = Val(GetFieldValue(Qry))
+        
+        'MC Pasrts Depot
+        'Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+              "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(i, 28)) & " AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+        'flxSP.TextMatrix(i, 24) = Val(GetFieldValue(Qry))
+        '-----------------------------------------------------------
+        
+        
+        Pbar.Value = IIf(Pbar.Value = Pbar.Max, Pbar.Max, Pbar.Value + 1)
+        DoEvents
+        If flxSP.TextMatrix(i, 52) = "INACTIVE" Then
+            flxSP.Col = 1: flxSP.Row = i: flxSP.ColSel = 75: flxSP.RowSel = i: flxSP.FillStyle = flexFillRepeat: flxSP.CellForeColor = RGB(255, 0, 0)
+        End If
+        '***Option Sales Quantity
+        Select Case OptrSQ.Value
+            Case 0
+                If Val(flxSP.TextMatrix(i, 45)) <> Val(txtSQ.Text) Then 'flxSP.TextMatrix(i, 9) = "x"
+                    If flxSP.Rows = 1 Then
+                        flxSP.Rows = 1
+                        'flxSP.Rows = 2
+                    Else
+                        flxSP.RemoveItem i
+                    End If
+                End If
+            Case 1
+                If Val(flxSP.TextMatrix(i, 45)) <= Val(txtSQ.Text) Then
+                    If flxSP.Rows = 1 Then
+                        flxSP.Rows = 1
+                        'flxSP.Rows = 2
+                    Else
+                        flxSP.RemoveItem i
+                    End If
+                End If
+            Case 2
+                If Val(flxSP.TextMatrix(i, 45)) < Val(txtSQ.Text) Then
+                    If flxSP.Rows = 1 Then
+                        flxSP.Rows = 1
+                        'flxSP.Rows = 2
+                    Else
+                        flxSP.RemoveItem i
+                    End If
+                End If
+            Case 3
+                If Val(flxSP.TextMatrix(i, 45)) >= Val(txtSQ.Text) Then
+                    If flxSP.Rows = 1 Then
+                        flxSP.Rows = 1
+                        'flxSP.Rows = 2
+                    Else
+                        flxSP.RemoveItem i
+                    End If
+                End If
+            Case 4
+                If Val(flxSP.TextMatrix(i, 45)) > Val(txtSQ.Text) Then
+                    If flxSP.Rows = 1 Then
+                        flxSP.Rows = 1
+                        'flxSP.Rows = 2
+                    Else
+                        flxSP.RemoveItem i
+                    End If
+                End If
+            Case 5
+                If Val(flxSP.TextMatrix(i, 45)) = Val(txtSQ.Text) Then
+                    If flxSP.Rows = 1 Then
+                        flxSP.Rows = 1
+                        'flxSP.Rows = 2
+                    Else
+                        flxSP.RemoveItem i
+                    End If
+                End If
+        End Select
+    Next i
+    Call AddInCombo
+    'Pbar.Visible = False
+    'Get 6 mos Sales quantity
+    
+    'pBar.Max = flxSP.Rows - 1
+    'For r = 0 To flxSP.Rows - 1
+    Pbar.Value = 0
+    Pbar.Max = flxSP.Rows
+    For r = 0 To flxSP.Rows - 1
+        Pbar.Value = Pbar.Value + 1
+        Ulas6M = 0: Yamaha6M = 0: Toril6M = 0: Van16M = 0: Van26M = 0
+        Mrc16m = 0: Panabo6M = 0: BinosPol6M = 0: GenSan6M = 0
+        
+        '**Query Branch SKU
+        'Moto-r Ulas
+        If UlasConnect Then
+            Qry = ""
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 3) = Val(GetFieldValueBranch(Qry, "ULAS"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 4) = Val(GetFieldValueBranch(Qry, "ULAS"))
+            flxSP.TextMatrix(r, 5) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "ULAS")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"      'AND SPITR.SOURCE='MOTO-R ULAS';"
+            flxSP.TextMatrix(r, 6) = Val(GetFieldValueBranch(Qry, "ULAS"))
+            Ulas6M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "ULAS")
+        End If
+        'Yamaha MotorHub
+        If YamahaConnect Then
+            Qry = ""
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 7) = Val(GetFieldValueBranch(Qry, "YAMAHA"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 8) = Val(GetFieldValueBranch(Qry, "YAMAHA"))
+            flxSP.TextMatrix(r, 9) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "YAMAHA")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='YAMAHA MOTORHUB';"
+            flxSP.TextMatrix(r, 10) = Val(GetFieldValueBranch(Qry, "YAMAHA"))
+            Yamaha6M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "YAMAHA")
+        End If
+        
+        'MC Parts Depot Corporation
+        If TorilConnect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 11) = Val(GetFieldValueBranch(Qry, "TORIL"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 12) = Val(GetFieldValueBranch(Qry, "TORIL"))
+            flxSP.TextMatrix(r, 13) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "TORIL")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 14) = Val(GetFieldValueBranch(Qry, "TORIL"))
+            Toril6M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "TORIL")
+        End If
+       
+        'Van Selling I
+        If Van1Connect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 15) = Val(GetFieldValueBranch(Qry, "VAN1"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 16) = Val(GetFieldValueBranch(Qry, "VAN1"))
+            flxSP.TextMatrix(r, 17) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "VAN1")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 18) = Val(GetFieldValueBranch(Qry, "VAN1"))
+            Van16M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "VAN1")
+        End If
+        'Van Selling II
+        If Van2Connect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 19) = Val(GetFieldValueBranch(Qry, "VAN2"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 20) = Val(GetFieldValueBranch(Qry, "VAN2"))
+            flxSP.TextMatrix(r, 21) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "VAN2")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 22) = Val(GetFieldValueBranch(Qry, "VAN2"))
+            Van26M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "VAN2")
+        End If
+        
+        'MRC PANABO
+        If PanaboConnect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 23) = Val(GetFieldValueBranch(Qry, "PANABO"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 24) = Val(GetFieldValueBranch(Qry, "PANABO"))
+            flxSP.TextMatrix(r, 25) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "PANABO")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 26) = Val(GetFieldValueBranch(Qry, "PANABO"))
+            Panabo6M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "PANABO")
+        End If
+        
+        'BINOS POLOMOLOK
+        If BinosPolConnect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 27) = Val(GetFieldValueBranch(Qry, "POLOMOLOK"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 28) = Val(GetFieldValueBranch(Qry, "POLOMOLOK"))
+            flxSP.TextMatrix(r, 29) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "POLOMOLOK")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 30) = Val(GetFieldValueBranch(Qry, "POLOMOLOK"))
+            BinosPol6M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "POLOMOLOK")
+        End If
+        
+        'MRC1
+        If MRC1Connect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 31) = Val(GetFieldValueBranch(Qry, "MRC1"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 32) = Val(GetFieldValueBranch(Qry, "MRC1"))
+            flxSP.TextMatrix(r, 33) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "MRC1")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 34) = Val(GetFieldValueBranch(Qry, "MRC1"))
+            Mrc16m = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "MRC1")
+        End If
+        'GENSAN
+        If GensanConnect Then
+            Qry = "SELECT spareparts.QTYONHAND From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 35) = Val(GetFieldValueBranch(Qry, "GENSAN"))
+            Qry = ""
+            Qry = "SELECT spareparts.BACKORDER From spareparts Where spareparts.SPAREPARTID = " & flxSP.TextMatrix(r, 75) & ";"
+            flxSP.TextMatrix(r, 36) = Val(GetFieldValueBranch(Qry, "GENSAN"))
+            flxSP.TextMatrix(r, 37) = GetSalesQtyBranch(Val(flxSP.TextMatrix(r, 75)), "GENSAN")
+            Qry = "SELECT Sum(SPITR.OUT) AS SumOfOUT From SPITR " & _
+                  "WHERE SPITR.TRANSDATE>='" & Format(SDfrom.Value, "yyyy-mm-dd") & "' And SPITR.TRANSDATE<='" & Format(SDto.Value, "yyyy-mm-dd") & "' AND SPITR.TRANSTYPE='OUT' AND SPITR.REMARKS='TRANSFER' AND SPITR.SPAREPARTID=" & Val(flxSP.TextMatrix(r, 75)) & ";"          ' AND SPITR.SOURCE='MC PARTS DEPOT CORP.';"
+            flxSP.TextMatrix(r, 38) = Val(GetFieldValueBranch(Qry, "GENSAN"))
+            GenSan6M = GetSalesQty6MBranch(Val(flxSP.TextMatrix(r, 75)), "GENSAN")
+        End If
+        
+        
+        
+        'Total Branch
+        'QH
+        'Total Branch
+        'SQ
+        flxSP.TextMatrix(r, 39) = Val(flxSP.TextMatrix(r, 3)) + Val(flxSP.TextMatrix(r, 7)) + Val(flxSP.TextMatrix(r, 11)) + Val(flxSP.TextMatrix(r, 15)) + Val(flxSP.TextMatrix(r, 19)) + Val(flxSP.TextMatrix(r, 23)) + Val(flxSP.TextMatrix(r, 27)) + Val(flxSP.TextMatrix(r, 31)) + Val(flxSP.TextMatrix(r, 35))
+        'BO
+        flxSP.TextMatrix(r, 40) = Val(flxSP.TextMatrix(r, 4)) + Val(flxSP.TextMatrix(r, 8)) + Val(flxSP.TextMatrix(r, 12)) + Val(flxSP.TextMatrix(r, 16)) + Val(flxSP.TextMatrix(r, 20)) + Val(flxSP.TextMatrix(r, 24)) + Val(flxSP.TextMatrix(r, 28)) + Val(flxSP.TextMatrix(r, 32)) + Val(flxSP.TextMatrix(r, 36))
+        'SQ
+        flxSP.TextMatrix(r, 41) = Val(flxSP.TextMatrix(r, 5)) + Val(flxSP.TextMatrix(r, 9)) + Val(flxSP.TextMatrix(r, 13)) + Val(flxSP.TextMatrix(r, 17)) + Val(flxSP.TextMatrix(r, 21)) + Val(flxSP.TextMatrix(r, 25)) + Val(flxSP.TextMatrix(r, 29)) + Val(flxSP.TextMatrix(r, 33)) + Val(flxSP.TextMatrix(r, 37))
+        'ST
+        flxSP.TextMatrix(r, 42) = Val(flxSP.TextMatrix(r, 6)) + Val(flxSP.TextMatrix(r, 10)) + Val(flxSP.TextMatrix(r, 14)) + Val(flxSP.TextMatrix(r, 18)) + Val(flxSP.TextMatrix(r, 22)) + Val(flxSP.TextMatrix(r, 26)) + Val(flxSP.TextMatrix(r, 30)) + Val(flxSP.TextMatrix(r, 34)) + Val(flxSP.TextMatrix(r, 38))
+        
+        flxSP.TextMatrix(r, 46) = Ulas6M + Yamaha6M + Toril6M + Van16M + Van26M + Panabo6M + BinosPol6M + Mrc16m + GenSan6M + Val(flxSP.TextMatrix(r, 45))
+        
+        'suggested order Qty.  = 6m Sales Gante+6m Sales Qty. Branch -( Branch QH + Main QH) -  Back Order Main only
+        'Before Jan. 4, 2013
+        'spSOQ = Val(flxSP.TextMatrix(r, 42)) - (Val(flxSP.TextMatrix(r, 35)) + Val(flxSP.TextMatrix(r, 39))) - Val(flxSP.TextMatrix(r, 40))
+        'new Monthly Avg (6Mos) * Order Mos  - (QH+BO)
+        spSOQ = ((Val(flxSP.TextMatrix(r, 46)) / 6) * Val(cbomos.Text)) - (Val(flxSP.TextMatrix(r, 39)) + Val(flxSP.TextMatrix(r, 43)) + Val(flxSP.TextMatrix(r, 44)))
+        flxSP.TextMatrix(r, 47) = IIf(spSOQ < 0, 0, Int(spSOQ + 0.49))
+    Next r
+    Pbar.Visible = False
+    'Call FillColorGrd
+    'flxSP.Row = 0
+    'flxSP.Col = 12
+    flxSP.Col = 43: flxSP.Row = 0: flxSP.ColSel = 45: flxSP.RowSel = flxSP.Rows - 1: flxSP.FillStyle = flexFillRepeat: flxSP.CellBackColor = RGB(150, 230, 150)
+    If flxSP.Rows >= 1 Then
+        'If flxSP.TextMatrix(0, 6) <> "" Then
+        If flxSP.TextMatrix(0, 39) <> "" Then
+            flxSP.SetFocus
+        Else
+            cboFind.SetFocus
+        End If
+    Else
+        cboFind.SetFocus
+    End If
+        
+   cmdReplenish.Enabled = True
+   cmdInsert.Enabled = True
+   cmdOK.Enabled = True
+   cmdCancel.Enabled = True
+   'Timer1.Enabled = True
+   Call fScrol_Change
+   
+End Sub

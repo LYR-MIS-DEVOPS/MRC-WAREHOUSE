@@ -1,0 +1,72 @@
+Qry = "SELECT menu.MENUID, menu.MENUNAME, useraccess.EMPID, UserAccess.ACCESSTYPE " & _
+        "From Menu INNER JOIN useraccess ON (menu.MENUID = useraccess.MENUID) Where UserAccess.EmpId = " & MyID & ";"
+        
+    With flxAccess
+        rsAcc.Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+        If rsAcc.RecordCount > 0 Then
+            rsAcc.MoveFirst
+            .Rows = 1
+            Do While Not rsAcc.EOF
+                .AddItem vbTab & rsAcc!MenuName
+                .Row = .Rows - 1
+                If rsAcc!ACCESSTYPE = 1 Then
+                    .Col = 2: .CellFontName = "Webdings"
+                    .TextMatrix(.Rows - 1, 2) = "a"
+                ElseIf rsAcc!ACCESSTYPE = 2 Then
+                    .Col = 3: .CellFontName = "Webdings"
+                    .TextMatrix(.Rows - 1, 3) = "a"
+                ElseIf rsAcc!ACCESSTYPE = 3 Then
+                    .Col = 4: .CellFontName = "Webdings"
+                    .TextMatrix(.Rows - 1, 4) = "a"
+                End If
+                    .TextMatrix(.Rows - 1, 5) = rsAcc!MENUID
+                rsAcc.MoveNext
+            Loop
+        Else
+            Call menuTrans
+             With flxAccess
+                .Row = 1: .Col = 2
+                .RowSel = .Rows - 1: .Col = .Cols - 1
+                .FillStyle = flexFillRepeat
+                .CellFontName = "Webdings"
+                    For i = 1 To .Rows - 1
+                        .Col = 3: .Row = i
+                        .CellFontName = "Webdings"
+                        .TextMatrix(i, 3) = "a" 'Label2.Caption
+                    Next i
+                .Row = 1: .Col = 0
+            End With
+        End If
+        rsAcc.Close
+    End With
+
+
+-----------------------------------
+
+
+ With flxAccess
+        
+        rsAcc.Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+        If rsAcc.RecordCount > 0 Then
+            rsAcc.MoveFirst
+            For i = 1 To .Rows - 1
+                If rsAcc.EOF Then
+                    Exit Sub
+                End If
+                If .TextMatrix(i, 5) = rsAcc!menuid And txtUserID.Text = rsAcc!EmpId Then
+                    If rsAcc!ACCESSTYPE = 1 Then
+                    .Col = 2: .CellFontName = "Webdings"
+                    .TextMatrix(.Rows - 1, 2) = "a"
+                    ElseIf rsAcc!ACCESSTYPE = 2 Then
+                        .Col = 3: .CellFontName = "Webdings"
+                        .TextMatrix(.Rows - 1, 3) = "a"
+                    ElseIf rsAcc!ACCESSTYPE = 3 Then
+                        .Col = 4: .CellFontName = "Webdings"
+                        .TextMatrix(.Rows - 1, 4) = "a"
+                    End If
+                        .TextMatrix(.Rows - 1, 5) = rsAcc!menuid
+                    rsAcc.MoveNext
+                End If
+            Next i
+        End If
+    End With

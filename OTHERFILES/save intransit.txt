@@ -1,0 +1,42 @@
+LYRcon.Execute "UPDATE sporderbranch SET `STATUS` = 'INTRANSIT' WHERE sporderbranch.REFERENCE = '" & cboPO.Text & "';"
+                LYRcon.Execute "UPDATE stocktransfer SET `STATUS` = 'INTRANSIT' WHERE stocktransfer.PONO = '" & cboPO.Text & "';"
+                Call GetStatus
+                
+                Qry = "SELECT spitr.REFERENCE From spitr Where spitr.REFERENCE = '" & cboPO.Text & "';"
+                With rsParts
+                    .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+                        If .RecordCount = 0 Then
+                            
+                                For i = 1 To flxOrd.Rows - 1
+                                 LYRcon.Execute "INSERT INTO spitr( REFERENCE, TRANSTYPE, TRANSDATE, SPAREPARTID, `OUT`, PRICE, PACKINGLIST, UPDATEDBY, LASTUPDATE ) " & _
+                                                    "VALUES('" & cboPO.Text & "', 'ORDER', '" & Format(txtDate.Text, "yyyy-mm-dd") & "', " & Val(flxOrd.TextMatrix(i, 6)) & ", " & Val(flxOrd.TextMatrix(i, 0)) & ", " & Val(flxOrd.TextMatrix(i, 7)) & ", '" & cboPO.Text & "', " & UserID & ", '" & LstUpdt & "');"
+                                Next i
+                            
+                        End If
+                    .Close
+   
+             End With
+
+
+
+
+
+
+Dim rsPOdtls As New Recordset
+    
+    Qry = "SELECT spbranchdtl.ALLOCATEDQTY, spareparts.PARTNUMBER, spareparts.DESCRIPTION, spbranchdtl.BQTYONHAND, spbranchdtl.SPAREPARTID, spareparts.STOREPRICE, spbranchdtl.BACKORDERQTY " & _
+            "From spbranchdtl INNER JOIN spareparts ON (spbranchdtl.SPAREPARTID = spareparts.SPAREPARTID) Where spbranchdtl.REFERENCE = '" & cboPO.Text & "' AND spbranchdtl.BRANCHSPOID = " & Val(cboPO.ItemData(cboPO.ListIndex)) & ";"
+    With rsPOdtls
+    .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+        If .RecordCount > 0 Then
+            flxOrd.Rows = 1
+                .MoveFirst
+                Do While Not .EOF
+                    flxOrd.AddItem !ALLOCATEDQTY & vbTab & IIf(Val(!ALLOCATEDQTY) >= 2, "PCS.", "PC.") & vbTab & !PartNumber & vbTab & !Description & vbTab & !BACKORDERQTY & vbTab & vbTab & !SPAREPARTID & vbTab & !StorePrice
+                .MoveNext
+                DoEvents
+                Loop
+        End If
+    .Close
+    End With
+    Call GetStatus

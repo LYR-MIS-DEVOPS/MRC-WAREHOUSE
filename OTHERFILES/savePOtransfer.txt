@@ -1,0 +1,115 @@
+save po for packing
+
+txtFlx.Visible = False
+            txtPartNo.Visible = False
+            flxParts.Visible = False
+            myMsg = ValidateTransfer
+            If myMsg <> "" Then
+                MsgBox myMsg, vbCritical + vbOKOnly, "Validation Error"
+                Exit Sub
+            End If
+            Ans = MsgBox("Do you want to save Parts Transfer?", vbQuestion + vbYesNo, "Save")
+            If Ans = vbNo Then Exit Sub
+            'Save Spare Parts Transfer
+            
+            If IsAvail = False Then
+                MsgBox (OrdRows & " Rows No Stock Availability ... in Check mark Rows."), vbCritical, "Available Stock"
+                Exit Sub
+            End If
+            Call SaveTransfer
+            'If chkFinal.Value = 1 Then
+            If chkFinal.Value = 1 Then Call FinalSPTransfer
+            MsgBox "Spareparts Transfer Successfully Saved!", vbInformation + vbOKOnly, "SAVE"
+            Call LockData(True)
+            Call ButtonSaveCancel(False)
+            chkFinal.Enabled = False
+            
+            cmdCheck.Enabled = True
+            cmdCheckUp.Enabled = True
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+Private Sub SaveTransfer()
+    Dim i As Integer, myTtl As Single, TransID As Integer
+    Dim eMsg As String, Qry As String, MyBranch As String, MyDate As Date, MyStat As String
+                                  
+    'Saving Table Spare Parts Invoice
+    On Error GoTo LocalErr
+    myTtl = Val(Replace(txtTotal.Text, ",", ""))
+    MyBranch = Replace(cboBranch.Text, "'", "`")
+    'MyDate = Format(Now, "mm/dd/yyyy hh:mm:ss")
+    'mySQL
+    MyDate = Format(Now, "yyyy-mm-dd hh:mm:ss")
+    MyStat = IIf(chkFinal.Value <> 0, "FINAL", "PENDING")
+    If AddNew Then
+        eMsg = "Saving New Record for SP Transfer"
+        'LYRcon.Execute "INSERT INTO STOCKTRANSFER (RECBRANCH, TRANSDATE, ADDRESS, PONO, PREPBY, APRVBY, TOTALCOST, STATUS, REMARKS, UPDATEDBY, LASTUPDATE) " & _
+        "VALUES ('" & MyBranch & "', #" & txtDate.Text & "#, '" & Replace(txtAddress.Text, "'", "`") & "', '" & txtPO.Text & "', '" & txtPrepBy.Text & "', '" & txtAprvBy.Text & "', " & Val(Replace(txtTotal.Text, ",", "")) & ", '" & MyStat & "', '" & txtRemarks.Text & "', " & UserID & ", #" & MyDate & "#);"
+        'mySQL
+        LYRcon.Execute "INSERT INTO STOCKTRANSFER (RECBRANCH, TRANSDATE, ADDRESS, PONO, PREPBY, APRVBY, TOTALCOST, STATUS, REMARKS, UPDATEDBY, LASTUPDATE, SQSERVE) " & _
+        "VALUES ('" & MyBranch & "', '" & Format(txtDate.Text, "yyyy-mm-dd") & "', '" & Replace(txtAddress.Text, "'", "`") & "', '" & txtPO.Text & "', '" & txtPrepBy.Text & "', '" & txtAprvBy.Text & "', " & Val(Replace(txtTotal.Text, ",", "")) & ", '" & MyStat & "', '" & txtRemarks.Text & "', " & UserID & ", '" & Format(MyDate, "yyyy-mm-dd hh:mm:ss") & "', " & Val(txtSQSERVE) & ");"
+        
+        'Qry = "SELECT STOCKTRANSFER.TRANSFERID From STOCKTRANSFER " & _
+              "WHERE (((STOCKTRANSFER.RECBRANCH)='" & MyBranch & "') AND ((STOCKTRANSFER.LASTUPDATE)=#" & MyDate & "#));"
+        'mySQL
+        Qry = "SELECT STOCKTRANSFER.TRANSFERID From STOCKTRANSFER " & _
+              "WHERE STOCKTRANSFER.RECBRANCH='" & MyBranch & "' AND STOCKTRANSFER.LASTUPDATE='" & Format(MyDate, "yyyy-mm-dd hh:mm:ss") & "';"
+
+        TransID = GetFieldValue(Qry)
+        txtRefNo.Text = IIf(Len(Str(TransID)) >= 4, TransID, Format(TransID, "0000"))
+    Else
+        eMsg = "Updating Record for SP Sales Order"
+        TransID = Val(txtRefNo.Text)
+        'LYRcon.Execute "UPDATE STOCKTRANSFER SET RECBRANCH = '" & MyBranch & "', TRANSDATE = #" & txtDate.Text & "#, ADDRESS = '" & txtAddress.Text & "', PONO = '" & txtPO.Text & "', PREPBY = '" & txtPrepBy.Text & "', APRVBY = '" & txtAprvBy.Text & "', TOTALCOST = " & Val(Replace(txtTotal.Text, ",", "")) & ", STATUS = '" & MyStat & "', REMARKS = '" & txtRemarks.Text & "', UPDATEDBY = " & UserID & ", LASTUPDATE = #" & MyDate & "# " & _
+        "WHERE (STOCKTRANSFER.TRANSFERID =" & TransID & ");"
+        'mySQL
+        LYRcon.Execute "UPDATE STOCKTRANSFER SET RECBRANCH = '" & MyBranch & "', TRANSDATE = '" & Format(txtDate.Text, "yyyy-mm-dd") & "', ADDRESS = '" & txtAddress.Text & "', PONO = '" & txtPO.Text & "', PREPBY = '" & txtPrepBy.Text & "', APRVBY = '" & txtAprvBy.Text & "', TOTALCOST = " & Val(Replace(txtTotal.Text, ",", "")) & ", STATUS = '" & MyStat & "', REMARKS = '" & txtRemarks.Text & "', UPDATEDBY = " & UserID & ", LASTUPDATE = '" & Format(MyDate, "yyyy-mm-dd hh:mm:ss") & "' " & _
+        "WHERE (STOCKTRANSFER.TRANSFERID =" & TransID & ");"
+    End If
+    'Saving Table STOCK TRANSFER Details
+    If Not AddNew Then
+        'LYRcon.Execute "DELETE stocktransdtl.* From stocktransdtl " & _
+                       "WHERE (((stocktransdtl.TRANSFERID)=" & TransID & "));"
+        'mySQL
+        LYRcon.Execute "DELETE From stocktransdtl " & _
+                       "WHERE stocktransdtl.TRANSFERID=" & TransID & ";"
+        DoEvents
+    End If
+    With flxOrd
+        pBar.Value = 0
+        pBar.Max = .Rows - 1
+        pBar.Visible = True
+        For i = 1 To flxOrd.Rows - 1
+            eMsg = "Line 612: Adding Spareparts Transfer Details @ row " & i
+            
+            LYRcon.Execute "INSERT INTO stocktransdtl (TRANSFERID, SPAREPARTID, QTY, UNIT, PACKING, COST, SEQNO, POREF ) " & _
+                               "VALUES (" & TransID & ", " & Val(.TextMatrix(i, 11)) & ", " & Val(.TextMatrix(i, 2)) & ", '" & .TextMatrix(i, 3) & "', '" & .TextMatrix(i, 6) & "', " & Val(Replace(.TextMatrix(i, 7), ",", "")) & ", " & i & ", '" & .TextMatrix(i, 15) & "');"
+            pBar.Value = pBar.Value + 1
+            DoEvents
+        Next i
+        pBar.Visible = False
+    End With
+    
+    Exit Sub
+LocalErr:
+    MsgBox "Error " & eMsg & vbCrLf & Err.Number & ": " & Err.Description, vbCritical + vbOKOnly, "Error"
+End Sub
+
+
+
+
+Good Morning,
+
+    Please regard this as an application for the position of Web Designer. Attached here is my resume with more details, as well as on other experiences and abilities that I posses. 
+
+Referred By: Regie Jedrae Lendio
+ 
+God bless and more power!
+
+Sincerely,
+
+Kevin Cris S. Ramos

@@ -1,0 +1,7 @@
+back order PO to supplier
+- make PO 
+- search BBO by(supplier, partnumber, description, branch,
+ classication, applicable model)
+- confirmation number before ma receive 
+- receive ang SPO nga BBO
+- allocate ang greceive para ma transfer

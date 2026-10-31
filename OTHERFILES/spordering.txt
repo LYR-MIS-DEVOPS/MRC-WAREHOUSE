@@ -1,0 +1,306 @@
+	.TextMatrix(0, 39) = "BRANCH TOTAL" 	(0, 63)
+        .TextMatrix(0, 40) = "BRANCH TOTAL"	(0, 64)
+        .TextMatrix(0, 41) = "BRANCH TOTAL"	(0, 65)
+        .TextMatrix(0, 42) = "BRANCH TOTAL"	(0, 66)
+             
+        .TextMatrix(0, 43) = "MRC WAREHOUSE"	(0, 67)
+        .TextMatrix(0, 44) = "MRC WAREHOUSE"	(0, 68)
+        .TextMatrix(0, 45) = "MRC WAREHOUSE"	(0, 69)
+             
+        
+        .TextMatrix(0, 46) = "PURCHASE ORDER"	(0, 70)
+        .TextMatrix(0, 47) = "PURCHASE ORDER"	(0, 71)
+        .TextMatrix(0, 48) = "PURCHASE ORDER"	(0, 72)
+        .TextMatrix(0, 49) = "PURCHASE ORDER"	(0, 73)
+        .TextMatrix(0, 50) = "PURCHASE ORDER"	(0, 74)
+
+
+
+
+
+        'Branch Total
+        .TextMatrix(1, 39) = "QH"
+        .TextMatrix(1, 40) = "BO"
+        .TextMatrix(1, 41) = "SQ"
+        .TextMatrix(1, 42) = "ST"
+        
+        'Moto-r Main GANTE
+        .TextMatrix(1, 43) = "QH"
+        .TextMatrix(1, 44) = "BO"
+        .TextMatrix(1, 45) = "6mSQ"
+        
+        'Purchase Order
+        .TextMatrix(1, 46) = "TTLSQ"
+        .TextMatrix(1, 47) = cbomos.Text & "mSOQ"
+        .TextMatrix(1, 48) = "ORDER"
+        .TextMatrix(1, 49) = "CWOV"
+        .TextMatrix(1, 50) = "APM"
+        
+
+flxsp
+	.ColWidth(51) = 0 - .ColWidth(75) = 0
+        .ColWidth(52) = 0 - .ColWidth(76) = 0
+
+
+
+.TextMatrix(0, 1) = "S P A R E P A R T S"
+        .TextMatrix(0, 2) = "S P A R E P A R T S"
+        
+        .TextMatrix(0, 3) = "MOTO-R ULAS"
+        .TextMatrix(0, 4) = "MOTO-R ULAS"
+        .TextMatrix(0, 5) = "MOTO-R ULAS"
+        .TextMatrix(0, 6) = "MOTO-R ULAS"
+        
+        .TextMatrix(0, 7) = "YM MOTORHUB"
+        .TextMatrix(0, 8) = "YM MOTORHUB"
+        .TextMatrix(0, 9) = "YM MOTORHUB"
+        .TextMatrix(0, 10) = "YM MOTORHUB"
+        
+        .TextMatrix(0, 11) = "MCP DEPOT"
+        .TextMatrix(0, 12) = "MCP DEPOT"
+        .TextMatrix(0, 13) = "MCP DEPOT"
+        .TextMatrix(0, 14) = "MCP DEPOT"
+             
+        .TextMatrix(0, 15) = "VAN I"
+        .TextMatrix(0, 16) = "VAN I"
+        .TextMatrix(0, 17) = "VAN I"
+        .TextMatrix(0, 18) = "VAN I"
+             
+        .TextMatrix(0, 19) = "VAN II"
+        .TextMatrix(0, 20) = "VAN II"
+        .TextMatrix(0, 21) = "VAN II"
+        .TextMatrix(0, 22) = "VAN II"
+             
+        .TextMatrix(0, 23) = "MRC PANABO"
+        .TextMatrix(0, 24) = "MRC PANABO"
+        .TextMatrix(0, 25) = "MRC PANABO"
+        .TextMatrix(0, 26) = "MRC PANABO"
+                  
+        .TextMatrix(0, 27) = "POLOMOLOK"
+        .TextMatrix(0, 28) = "POLOMOLOK"
+        .TextMatrix(0, 29) = "POLOMOLOK"
+        .TextMatrix(0, 30) = "POLOMOLOK"
+                  
+        .TextMatrix(0, 31) = "MRC SOBRECARY"
+        .TextMatrix(0, 32) = "MRC SOBRECARY"
+        .TextMatrix(0, 33) = "MRC SOBRECARY"
+        .TextMatrix(0, 34) = "MRC SOBRECARY"
+        
+        .TextMatrix(0, 35) = "MRC GENSAN"
+        .TextMatrix(0, 36) = "MRC GENSAN"
+        .TextMatrix(0, 37) = "MRC GENSAN"
+        .TextMatrix(0, 38) = "MRC GENSAN"
+        
+        .TextMatrix(0, 39) = "MRC 2 RETAIL"
+        .TextMatrix(0, 40) = "MRC 2 RETAIL"
+        .TextMatrix(0, 41) = "MRC 2 RETAIL"
+        .TextMatrix(0, 42) = "MRC 2 RETAIL"
+        
+        .TextMatrix(0, 43) = "YAMAHA MARBEL"
+        .TextMatrix(0, 44) = "YAMAHA MARBEL"
+        .TextMatrix(0, 45) = "YAMAHA MARBEL"
+        .TextMatrix(0, 46) = "YAMAHA MARBEL"
+        
+        .TextMatrix(0, 47) = "BINOS STO.TOMAS"
+        .TextMatrix(0, 48) = "BINOS STO.TOMAS"
+        .TextMatrix(0, 49) = "BINOS STO.TOMAS"
+        .TextMatrix(0, 50) = "BINOS STO.TOMAS"
+        
+        .TextMatrix(0, 51) = "BINOS SAMAL"
+        .TextMatrix(0, 52) = "BINOS SAMAL"
+        .TextMatrix(0, 53) = "BINOS SAMAL"
+        .TextMatrix(0, 54) = "BINOS SAMAL"
+        
+        .TextMatrix(0, 55) = "MRC VAN3"
+        .TextMatrix(0, 56) = "MRC VAN3"
+        .TextMatrix(0, 57) = "MRC VAN3"
+        .TextMatrix(0, 58) = "MRC VAN3"
+        
+        .TextMatrix(0, 59) = "MRC WHOLESALE"
+        .TextMatrix(0, 60) = "MRC WHOLESALE"
+        .TextMatrix(0, 61) = "MRC WHOLESALE"
+        .TextMatrix(0, 62) = "MRC WHOLESALE"
+        
+
+
+
+    Dim Ulas6M      As Double
+    Dim Yamaha6M    As Double
+    Dim Toril6M     As Double
+    Dim Van16M      As Double
+    Dim Van26M      As Double
+    Dim Mrc16m      As Double
+    Dim Panabo6M    As Double
+    Dim BinosPol6M  As Double
+    Dim GenSan6M    As Double
+    Dim Mrc26M      As Double
+    Dim Ymarbel6m   As Double
+    Dim Stotomas6m  As Double
+    Dim Samal6m     As Double
+    Dim Van36m      As Double
+    Dim Wsale6m     As Double
+
+ConnectMRC2()		conMRC2
+ConnectYmarbel()	conYmarbel
+ConnectStotomas()	conStotomas
+ConnectSamal()		conSamal
+ConnectVan3()		conVan3
+ConnectWsale()		conWsale
+ConnectWhouse()		conWhouse	
+
+Dim MRC1Connect As Boolean, MRC2Connect As Boolean, UlasConnect As Boolean, TorilConnect As Boolean, Van2Connect As Boolean
+Dim PanaboConnect As Boolean, BinosPolConnect As Boolean, YamahaConnect As Boolean, Van1Connect As Boolean, GensanConnect As Boolean
+Dim YmarbelConnect As Boolean, StotomasConnect As Boolean, SamalConnect As Boolean, Van3Connect As Boolean
+Dim WsaleConnect As Boolean, Whouse As Boolean
+
+
+With rsAll
+        If myCON = "VAN1" Then
+            .Open MyQ, conVAN1, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "VAN2" Then
+            .Open MyQ, conVAN2, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "MRC2" Then
+            .Open MyQ, conMRC2, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "MRC1" Then
+            .Open MyQ, conMRC1, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "ULAS" Then
+            .Open MyQ, conUlas, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "TORIL" Then
+            .Open MyQ, conToril, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "YAMAHA" Then
+            .Open MyQ, conYM, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "PANABO" Then
+            .Open MyQ, conPanabo, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "POLOMOLOK" Then
+            .Open MyQ, conPol, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "GENSAN" Then
+            .Open MyQ, conGenSan, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "GANTE" Then
+            .Open MyQ, conMRC2, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "MARBEL" Then
+            .Open MyQ, conYmarbel, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "STOTOMAS" Then
+            .Open MyQ, conStotomas, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "SAMAL" Then
+            .Open MyQ, conSamal, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "VAN3" Then
+            .Open MyQ, conVan3, adOpenKeyset, adLockOptimistic
+        ElseIf myCON = "WSALE" Then
+            .Open MyQ, conWsale, adOpenKeyset, adLockOptimistic
+        End If
+        
+
+ 'moto-r Ulas
+        .TextMatrix(1, 1) = "PARTNUMBER"
+        .TextMatrix(1, 2) = "DESCRIPTION"
+        .TextMatrix(1, 3) = "QH"
+        .TextMatrix(1, 4) = "BO"
+        .TextMatrix(1, 5) = "SQ"
+        .TextMatrix(1, 6) = "ST"
+        'Yamaha Motorhub
+        .TextMatrix(1, 7) = "QH"
+        .TextMatrix(1, 8) = "BO"
+        .TextMatrix(1, 9) = "SQ"
+        .TextMatrix(1, 10) = "ST"
+        'MC Parts Depot
+        .TextMatrix(1, 11) = "QH"
+        .TextMatrix(1, 12) = "BO"
+        .TextMatrix(1, 13) = "SQ"
+        .TextMatrix(1, 14) = "ST"
+        'VAN I
+        .TextMatrix(1, 15) = "QH"
+        .TextMatrix(1, 16) = "BO"
+        .TextMatrix(1, 17) = "SQ"
+        .TextMatrix(1, 18) = "ST"
+        'VAN II
+        .TextMatrix(1, 19) = "QH"
+        .TextMatrix(1, 20) = "BO"
+        .TextMatrix(1, 21) = "SQ"
+        .TextMatrix(1, 22) = "ST"
+        
+        'PANABO
+        .TextMatrix(1, 23) = "QH"
+        .TextMatrix(1, 24) = "BO"
+        .TextMatrix(1, 25) = "SQ"
+        .TextMatrix(1, 26) = "ST"
+        
+        'POLOMOLOK
+        .TextMatrix(1, 27) = "QH"
+        .TextMatrix(1, 28) = "BO"
+        .TextMatrix(1, 29) = "SQ"
+        .TextMatrix(1, 30) = "ST"
+        
+        'SOBRECARY
+        .TextMatrix(1, 31) = "QH"
+        .TextMatrix(1, 32) = "BO"
+        .TextMatrix(1, 33) = "SQ"
+        .TextMatrix(1, 34) = "ST"
+        
+        'GENSAN
+        .TextMatrix(1, 35) = "QH"
+        .TextMatrix(1, 36) = "BO"
+        .TextMatrix(1, 37) = "SQ"
+        .TextMatrix(1, 38) = "ST"
+        
+        'MRC2RETAIL
+        .TextMatrix(1, 39) = "QH"
+        .TextMatrix(1, 40) = "BO"
+        .TextMatrix(1, 41) = "SQ"
+        .TextMatrix(1, 42) = "ST"
+        
+        'MARBEL
+        .TextMatrix(1, 43) = "QH"
+        .TextMatrix(1, 44) = "BO"
+        .TextMatrix(1, 45) = "SQ"
+        .TextMatrix(1, 46) = "ST"
+        
+        'STOTOMAS
+        .TextMatrix(1, 47) = "QH"
+        .TextMatrix(1, 48) = "BO"
+        .TextMatrix(1, 49) = "SQ"
+        .TextMatrix(1, 50) = "ST"
+        
+        'SAMAL
+        .TextMatrix(1, 51) = "QH"
+        .TextMatrix(1, 52) = "BO"
+        .TextMatrix(1, 53) = "SQ"
+        .TextMatrix(1, 54) = "ST"
+        
+        'VAN 3
+        .TextMatrix(1, 55) = "QH"
+        .TextMatrix(1, 56) = "BO"
+        .TextMatrix(1, 57) = "SQ"
+        .TextMatrix(1, 58) = "ST"
+        
+        'WHOLESALE
+        .TextMatrix(1, 59) = "QH"
+        .TextMatrix(1, 60) = "BO"
+        .TextMatrix(1, 61) = "SQ"
+        .TextMatrix(1, 62) = "ST"
+        
+        'Branch Total
+        .TextMatrix(1, 63) = "QH"
+        .TextMatrix(1, 64) = "BO"
+        .TextMatrix(1, 65) = "SQ"
+        .TextMatrix(1, 66) = "ST"
+        
+        'MRC WAREHOUSE
+        .TextMatrix(1, 67) = "QH"
+        .TextMatrix(1, 68) = "BO"
+        .TextMatrix(1, 69) = "6mSQ"
+        
+        'Purchase Order
+        .TextMatrix(1, 70) = "TTLSQ"
+        .TextMatrix(1, 71) = cboMos.Text & "mSOQ"
+        .TextMatrix(1, 72) = "ORDER"
+        .TextMatrix(1, 73) = "CWOV"
+        .TextMatrix(1, 74) = "APM"
+
+
+Private Sub flxSum_Click()
+    ActRow = flxSum.Row
+End Sub
+
+Private Sub flxSum_EnterCell()
+    ActRow = flxSum.Row
+End Sub

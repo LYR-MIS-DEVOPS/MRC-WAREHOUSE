@@ -1,0 +1,317 @@
+Line 33: Class TabDlg.SSTab of control tabLoadPO was not a loaded control class.
+Line 73: Class MSFlexGridLib.MSFlexGrid of control flxPOdetails was not a loaded control class.
+Line 85: Class MSHierarchicalFlexGridLib.MSHFlexGrid of control flxBranch was not a loaded control class.
+Line 105: Class MSComctlLib.ProgressBar of control pBarOrder was not a loaded control class.
+Line 116: Class MSFlexGridLib.MSFlexGrid of control flxOrder was not a loaded control class.
+Line 143: Class MSFlexGridLib.MSFlexGrid of control flxMain was not a loaded control class.
+Line 164: Class MSHierarchicalFlexGridLib.MSHFlexGrid of control flxAdd was not a loaded control class.
+Line 221: Class MSComctlLib.ProgressBar of control pBar was not a loaded control class.
+Line 242: Class MSHierarchicalFlexGridLib.MSHFlexGrid of control flxSum was not a loaded control class.
+Line 265: Class lvButton.lvButtons_H of control cmdUpdate was not a loaded control class.
+Line 300: Class lvButton.lvButtons_H of control cmdFind was not a loaded control class.
+Line 328: Class MSComCtl2.DTPicker of control dFrom was not a loaded control class.
+Line 340: Class lvButton.lvButtons_H of control cmdNext was not a loaded control class.
+Line 366: Class lvButton.lvButtons_H of control cmdRefresh was not a loaded control class.
+Line 393: Class MSComCtl2.DTPicker of control dTo was not a loaded control class.
+Line 406: Class lvButton.lvButtons_H of control cmdPrev was not a loaded control class.
+Line 451: Class lvButton.lvButtons_H of control cmdShow was not a loaded control class.
+Line 478: Class lvButton.lvButtons_H of control cmdPrint was not a loaded control class.
+Line 505: Class lvButton.lvButtons_H of control cmdExit was not a loaded control class.
+Line 532: Class MSFlexGridLib.MSFlexGrid of control flxCancel was not a loaded control class.
+Line 546: Class lvButton.lvButtons_H of control cmdFilter was not a loaded control class.
+Line 606: Class MSComCtl2.UpDown of control UpdYear was not a loaded control class.
+Line 625: Class lvButton.lvButtons_H of control cmdFind2 was not a loaded control class.
+Line 664: Class MSFlexGridLib.MSFlexGrid of control flxPay was not a loaded control class.
+Line 679: Class MSFlexGridLib.MSFlexGrid of control flxLedger was not a loaded control class.
+Line 709: Class MSHierarchicalFlexGridLib.MSHFlexGrid of control flxAccts was not a loaded control class.
+Line 722: Class lvButton.lvButtons_H of control cmdChkClosed was not a loaded control class.
+Line 750: Class MSFlexGridLib.MSFlexGrid of control flxAge1 was not a loaded control class.
+Line 768: Class TabDlg.SSTab of control tabWait was not a loaded control class.
+Line 837: Class lvButton.lvButtons_H of control cmdTransmittal was not a loaded control class.
+Line 865: Class lvButton.lvButtons_H of control cmdSalesDrive was not a loaded control class.
+Line 901: Class ResizeXtra.RXResizer of control RXResizer1 was not a loaded control class.
+Line 40: The property name _ExtentX in tabLoadPO is invalid.
+Line 41: The property name _ExtentY in tabLoadPO is invalid.
+Line 42: The property name _Version in tabLoadPO is invalid.
+Line 43: The property name Tabs in tabLoadPO is invalid.
+Line 44: The property name TabsPerRow in tabLoadPO is invalid.
+Line 45: The property name TabHeight in tabLoadPO is invalid.
+Line 46: The property name TabCaption(0) in tabLoadPO is invalid.
+Line 47: The property name TabPicture(0) in tabLoadPO is invalid.
+Line 48: The property name Tab(0).ControlEnabled in tabLoadPO is invalid.
+Line 49: The property name Tab(0).Control(0) in tabLoadPO is invalid.
+Line 50: The property name Tab(0).Control(0).Enabled in tabLoadPO is invalid.
+Line 51: The property name Tab(0).Control(1) in tabLoadPO is invalid.
+Line 52: The property name Tab(0).Control(1).Enabled in tabLoadPO is invalid.
+Line 53: The property name Tab(0).Control(2) in tabLoadPO is invalid.
+Line 54: The property name Tab(0).Control(2).Enabled in tabLoadPO is invalid.
+Line 55: The property name Tab(0).Control(3) in tabLoadPO is invalid.
+Line 56: The property name Tab(0).Control(3).Enabled in tabLoadPO is invalid.
+Line 57: The property name Tab(0).Control(4) in tabLoadPO is invalid.
+Line 58: The property name Tab(0).Control(4).Enabled in tabLoadPO is invalid.
+Line 59: The property name Tab(0).Control(5) in tabLoadPO is invalid.
+Line 60: The property name Tab(0).Control(5).Enabled in tabLoadPO is invalid.
+Line 61: The property name Tab(0).Control(6) in tabLoadPO is invalid.
+Line 62: The property name Tab(0).Control(6).Enabled in tabLoadPO is invalid.
+Line 63: The property name Tab(0).Control(7) in tabLoadPO is invalid.
+Line 64: The property name Tab(0).Control(7).Enabled in tabLoadPO is invalid.
+Line 65: The property name Tab(0).ControlCount in tabLoadPO is invalid.
+Line 79: The property name _ExtentX in flxPOdetails is invalid.
+Line 80: The property name _ExtentY in flxPOdetails is invalid.
+Line 81: The property name _Version in flxPOdetails is invalid.
+Line 82: The property name Cols in flxPOdetails is invalid.
+Line 83: The property name FixedCols in flxPOdetails is invalid.
+Line 91: The property name _ExtentX in flxBranch is invalid.
+Line 92: The property name _ExtentY in flxBranch is invalid.
+Line 93: The property name _Version in flxBranch is invalid.
+Line 94: The property name Cols in flxBranch is invalid.
+Line 95: The property name _NumberOfBands in flxBranch is invalid.
+Line 96: The property name _Band(0).Cols in flxBranch is invalid.
+Line 111: The property name _ExtentX in pBarOrder is invalid.
+Line 112: The property name _ExtentY in pBarOrder is invalid.
+Line 113: The property name _Version in pBarOrder is invalid.
+Line 122: The property name _ExtentX in flxOrder is invalid.
+Line 123: The property name _ExtentY in flxOrder is invalid.
+Line 124: The property name _Version in flxOrder is invalid.
+Line 125: The property name Cols in flxOrder is invalid.
+Line 126: The property name FixedCols in flxOrder is invalid.
+Line 150: The property name _ExtentX in flxMain is invalid.
+Line 151: The property name _ExtentY in flxMain is invalid.
+Line 152: The property name _Version in flxMain is invalid.
+Line 153: The property name Cols in flxMain is invalid.
+Line 154: The property name FixedCols in flxMain is invalid.
+Line 171: The property name _ExtentX in flxAdd is invalid.
+Line 172: The property name _ExtentY in flxAdd is invalid.
+Line 173: The property name _Version in flxAdd is invalid.
+Line 174: The property name Cols in flxAdd is invalid.
+Line 175: The property name FixedCols in flxAdd is invalid.
+Line 176: The property name _NumberOfBands in flxAdd is invalid.
+Line 177: The property name _Band(0).Cols in flxAdd is invalid.
+Line 229: The property name _ExtentX in pBar is invalid.
+Line 230: The property name _ExtentY in pBar is invalid.
+Line 231: The property name _Version in pBar is invalid.
+Line 249: The property name _ExtentX in flxSum is invalid.
+Line 250: The property name _ExtentY in flxSum is invalid.
+Line 251: The property name _Version in flxSum is invalid.
+Line 252: The property name RowHeightMin in flxSum is invalid.
+Line 253: The property name SelectionMode in flxSum is invalid.
+Line 254: The property name AllowUserResizing in flxSum is invalid.
+Line 255: The property name _NumberOfBands in flxSum is invalid.
+Line 256: The property name _Band(0).Cols in flxSum is invalid.
+Line 273: The property name _ExtentX in cmdUpdate is invalid.
+Line 274: The property name _ExtentY in cmdUpdate is invalid.
+Line 275: The property name Caption in cmdUpdate is invalid.
+Line 276: The property name CapAlign in cmdUpdate is invalid.
+Line 277: The property name BackStyle in cmdUpdate is invalid.
+Line 287: The property name cGradient in cmdUpdate is invalid.
+Line 288: The property name Mode in cmdUpdate is invalid.
+Line 289: The property name Value in cmdUpdate is invalid.
+Line 290: The property name cBack in cmdUpdate is invalid.
+Line 307: The property name _ExtentX in cmdFind is invalid.
+Line 308: The property name _ExtentY in cmdFind is invalid.
+Line 309: The property name Caption in cmdFind is invalid.
+Line 310: The property name CapAlign in cmdFind is invalid.
+Line 311: The property name BackStyle in cmdFind is invalid.
+Line 321: The property name cGradient in cmdFind is invalid.
+Line 322: The property name Mode in cmdFind is invalid.
+Line 323: The property name Value in cmdFind is invalid.
+Line 324: The property name ImgAlign in cmdFind is invalid.
+Line 325: The property name Image in cmdFind is invalid.
+Line 326: The property name cBack in cmdFind is invalid.
+Line 334: The property name _ExtentX in dFrom is invalid.
+Line 335: The property name _ExtentY in dFrom is invalid.
+Line 336: The property name _Version in dFrom is invalid.
+Line 337: The property name Format in dFrom is invalid.
+Line 338: The property name CurrentDate in dFrom is invalid.
+Line 347: The property name _ExtentX in cmdNext is invalid.
+Line 348: The property name _ExtentY in cmdNext is invalid.
+Line 349: The property name CapAlign in cmdNext is invalid.
+Line 350: The property name BackStyle in cmdNext is invalid.
+Line 360: The property name cGradient in cmdNext is invalid.
+Line 361: The property name Mode in cmdNext is invalid.
+Line 362: The property name Value in cmdNext is invalid.
+Line 363: The property name Image in cmdNext is invalid.
+Line 364: The property name cBack in cmdNext is invalid.
+Line 374: The property name _ExtentX in cmdRefresh is invalid.
+Line 375: The property name _ExtentY in cmdRefresh is invalid.
+Line 376: The property name CapAlign in cmdRefresh is invalid.
+Line 377: The property name BackStyle in cmdRefresh is invalid.
+Line 387: The property name cGradient in cmdRefresh is invalid.
+Line 388: The property name Mode in cmdRefresh is invalid.
+Line 389: The property name Value in cmdRefresh is invalid.
+Line 390: The property name Image in cmdRefresh is invalid.
+Line 391: The property name cBack in cmdRefresh is invalid.
+Line 400: The property name _ExtentX in dTo is invalid.
+Line 401: The property name _ExtentY in dTo is invalid.
+Line 402: The property name _Version in dTo is invalid.
+Line 403: The property name Format in dTo is invalid.
+Line 404: The property name CurrentDate in dTo is invalid.
+Line 414: The property name _ExtentX in cmdPrev is invalid.
+Line 415: The property name _ExtentY in cmdPrev is invalid.
+Line 416: The property name CapAlign in cmdPrev is invalid.
+Line 417: The property name BackStyle in cmdPrev is invalid.
+Line 427: The property name cGradient in cmdPrev is invalid.
+Line 428: The property name Mode in cmdPrev is invalid.
+Line 429: The property name Value in cmdPrev is invalid.
+Line 430: The property name Image in cmdPrev is invalid.
+Line 431: The property name cBack in cmdPrev is invalid.
+Line 457: The property name _ExtentX in cmdShow is invalid.
+Line 458: The property name _ExtentY in cmdShow is invalid.
+Line 459: The property name Caption in cmdShow is invalid.
+Line 460: The property name CapAlign in cmdShow is invalid.
+Line 461: The property name BackStyle in cmdShow is invalid.
+Line 471: The property name cGradient in cmdShow is invalid.
+Line 472: The property name Mode in cmdShow is invalid.
+Line 473: The property name Value in cmdShow is invalid.
+Line 474: The property name ImgAlign in cmdShow is invalid.
+Line 475: The property name Image in cmdShow is invalid.
+Line 476: The property name cBack in cmdShow is invalid.
+Line 484: The property name _ExtentX in cmdPrint is invalid.
+Line 485: The property name _ExtentY in cmdPrint is invalid.
+Line 486: The property name Caption in cmdPrint is invalid.
+Line 487: The property name CapAlign in cmdPrint is invalid.
+Line 488: The property name BackStyle in cmdPrint is invalid.
+Line 498: The property name cGradient in cmdPrint is invalid.
+Line 499: The property name Mode in cmdPrint is invalid.
+Line 500: The property name Value in cmdPrint is invalid.
+Line 501: The property name ImgAlign in cmdPrint is invalid.
+Line 502: The property name Image in cmdPrint is invalid.
+Line 503: The property name cBack in cmdPrint is invalid.
+Line 511: The property name _ExtentX in cmdExit is invalid.
+Line 512: The property name _ExtentY in cmdExit is invalid.
+Line 513: The property name Caption in cmdExit is invalid.
+Line 514: The property name CapAlign in cmdExit is invalid.
+Line 515: The property name BackStyle in cmdExit is invalid.
+Line 525: The property name cGradient in cmdExit is invalid.
+Line 526: The property name Mode in cmdExit is invalid.
+Line 527: The property name Value in cmdExit is invalid.
+Line 528: The property name ImgAlign in cmdExit is invalid.
+Line 529: The property name Image in cmdExit is invalid.
+Line 530: The property name cBack in cmdExit is invalid.
+Line 539: The property name _ExtentX in flxCancel is invalid.
+Line 540: The property name _ExtentY in flxCancel is invalid.
+Line 541: The property name _Version in flxCancel is invalid.
+Line 542: The property name Cols in flxCancel is invalid.
+Line 543: The property name FixedCols in flxCancel is invalid.
+Line 544: The property name FormatString in flxCancel is invalid.
+Line 553: The property name _ExtentX in cmdFilter is invalid.
+Line 554: The property name _ExtentY in cmdFilter is invalid.
+Line 555: The property name Caption in cmdFilter is invalid.
+Line 556: The property name CapAlign in cmdFilter is invalid.
+Line 557: The property name BackStyle in cmdFilter is invalid.
+Line 567: The property name cGradient in cmdFilter is invalid.
+Line 568: The property name Mode in cmdFilter is invalid.
+Line 569: The property name Value in cmdFilter is invalid.
+Line 570: The property name ImgAlign in cmdFilter is invalid.
+Line 571: The property name Image in cmdFilter is invalid.
+Line 572: The property name cBack in cmdFilter is invalid.
+Line 613: The property name _ExtentX in UpdYear is invalid.
+Line 614: The property name _ExtentY in UpdYear is invalid.
+Line 615: The property name _Version in UpdYear is invalid.
+Line 616: The property name Value in UpdYear is invalid.
+Line 617: The property name OrigLeft in UpdYear is invalid.
+Line 618: The property name OrigTop in UpdYear is invalid.
+Line 619: The property name OrigRight in UpdYear is invalid.
+Line 620: The property name OrigBottom in UpdYear is invalid.
+Line 621: The property name Max in UpdYear is invalid.
+Line 622: The property name Min in UpdYear is invalid.
+Line 632: The property name _ExtentX in cmdFind2 is invalid.
+Line 633: The property name _ExtentY in cmdFind2 is invalid.
+Line 634: The property name Caption in cmdFind2 is invalid.
+Line 635: The property name CapAlign in cmdFind2 is invalid.
+Line 636: The property name BackStyle in cmdFind2 is invalid.
+Line 646: The property name cGradient in cmdFind2 is invalid.
+Line 647: The property name Mode in cmdFind2 is invalid.
+Line 648: The property name Value in cmdFind2 is invalid.
+Line 649: The property name ImgAlign in cmdFind2 is invalid.
+Line 650: The property name Image in cmdFind2 is invalid.
+Line 651: The property name cBack in cmdFind2 is invalid.
+Line 671: The property name _ExtentX in flxPay is invalid.
+Line 672: The property name _ExtentY in flxPay is invalid.
+Line 673: The property name _Version in flxPay is invalid.
+Line 674: The property name Cols in flxPay is invalid.
+Line 675: The property name FixedCols in flxPay is invalid.
+Line 676: The property name BackColorBkg in flxPay is invalid.
+Line 677: The property name FormatString in flxPay is invalid.
+Line 686: The property name _ExtentX in flxLedger is invalid.
+Line 687: The property name _ExtentY in flxLedger is invalid.
+Line 688: The property name _Version in flxLedger is invalid.
+Line 689: The property name Rows in flxLedger is invalid.
+Line 690: The property name Cols in flxLedger is invalid.
+Line 691: The property name FixedRows in flxLedger is invalid.
+Line 692: The property name FixedCols in flxLedger is invalid.
+Line 693: The property name BackColorBkg in flxLedger is invalid.
+Line 694: The property name GridColor in flxLedger is invalid.
+Line 695: The property name GridColorFixed in flxLedger is invalid.
+Line 696: The property name ScrollBars in flxLedger is invalid.
+Line 697: The property name SelectionMode in flxLedger is invalid.
+Line 716: The property name _ExtentX in flxAccts is invalid.
+Line 717: The property name _ExtentY in flxAccts is invalid.
+Line 718: The property name _Version in flxAccts is invalid.
+Line 719: The property name _NumberOfBands in flxAccts is invalid.
+Line 720: The property name _Band(0).Cols in flxAccts is invalid.
+Line 730: The property name _ExtentX in cmdChkClosed is invalid.
+Line 731: The property name _ExtentY in cmdChkClosed is invalid.
+Line 732: The property name CapAlign in cmdChkClosed is invalid.
+Line 733: The property name BackStyle in cmdChkClosed is invalid.
+Line 743: The property name cGradient in cmdChkClosed is invalid.
+Line 744: The property name Mode in cmdChkClosed is invalid.
+Line 745: The property name Value in cmdChkClosed is invalid.
+Line 746: The property name ImgAlign in cmdChkClosed is invalid.
+Line 747: The property name Image in cmdChkClosed is invalid.
+Line 748: The property name cBack in cmdChkClosed is invalid.
+Line 758: The property name _ExtentX in flxAge1 is invalid.
+Line 759: The property name _ExtentY in flxAge1 is invalid.
+Line 760: The property name _Version in flxAge1 is invalid.
+Line 761: The property name Cols in flxAge1 is invalid.
+Line 762: The property name FixedCols in flxAge1 is invalid.
+Line 763: The property name BackColorBkg in flxAge1 is invalid.
+Line 764: The property name SelectionMode in flxAge1 is invalid.
+Line 765: The property name AllowUserResizing in flxAge1 is invalid.
+Line 766: The property name FormatString in flxAge1 is invalid.
+Line 775: The property name _ExtentX in tabWait is invalid.
+Line 776: The property name _ExtentY in tabWait is invalid.
+Line 777: The property name _Version in tabWait is invalid.
+Line 778: The property name Tabs in tabWait is invalid.
+Line 779: The property name TabsPerRow in tabWait is invalid.
+Line 780: The property name TabHeight in tabWait is invalid.
+Line 781: The property name TabCaption(0) in tabWait is invalid.
+Line 782: The property name TabPicture(0) in tabWait is invalid.
+Line 783: The property name Tab(0).ControlEnabled in tabWait is invalid.
+Line 784: The property name Tab(0).Control(0) in tabWait is invalid.
+Line 785: The property name Tab(0).Control(0).Enabled in tabWait is invalid.
+Line 786: The property name Tab(0).Control(1) in tabWait is invalid.
+Line 787: The property name Tab(0).Control(1).Enabled in tabWait is invalid.
+Line 788: The property name Tab(0).Control(2) in tabWait is invalid.
+Line 789: The property name Tab(0).Control(2).Enabled in tabWait is invalid.
+Line 790: The property name Tab(0).ControlCount in tabWait is invalid.
+Line 844: The property name _ExtentX in cmdTransmittal is invalid.
+Line 845: The property name _ExtentY in cmdTransmittal is invalid.
+Line 846: The property name Caption in cmdTransmittal is invalid.
+Line 847: The property name CapAlign in cmdTransmittal is invalid.
+Line 848: The property name BackStyle in cmdTransmittal is invalid.
+Line 858: The property name cGradient in cmdTransmittal is invalid.
+Line 859: The property name Mode in cmdTransmittal is invalid.
+Line 860: The property name Value in cmdTransmittal is invalid.
+Line 861: The property name ImgAlign in cmdTransmittal is invalid.
+Line 862: The property name Image in cmdTransmittal is invalid.
+Line 863: The property name cBack in cmdTransmittal is invalid.
+Line 872: The property name _ExtentX in cmdSalesDrive is invalid.
+Line 873: The property name _ExtentY in cmdSalesDrive is invalid.
+Line 874: The property name Caption in cmdSalesDrive is invalid.
+Line 875: The property name CapAlign in cmdSalesDrive is invalid.
+Line 876: The property name BackStyle in cmdSalesDrive is invalid.
+Line 886: The property name cGradient in cmdSalesDrive is invalid.
+Line 887: The property name Mode in cmdSalesDrive is invalid.
+Line 888: The property name Value in cmdSalesDrive is invalid.
+Line 889: The property name ImgAlign in cmdSalesDrive is invalid.
+Line 890: The property name Image in cmdSalesDrive is invalid.
+Line 891: The property name cBack in cmdSalesDrive is invalid.
+Line 904: The property name _ExtentX in RXResizer1 is invalid.
+Line 905: The property name _ExtentY in RXResizer1 is invalid.
+Line 906: The property name RegistryKey in RXResizer1 is invalid.
+Line 907: The property name Registered in RXResizer1 is invalid.
+Line 908: The property name m_MDI_Width in RXResizer1 is invalid.
+Line 909: The property name m_MDI_Height in RXResizer1 is invalid.
+Line 910: The property name OriginalBorder in RXResizer1 is invalid.
+Line 911: The property name OriginalCaption in RXResizer1 is invalid.

@@ -1,0 +1,6 @@
+Line 14: Property Icon in SPUPDATEPO had an invalid file reference.
+Line 68: Property TabPicture(0) in stabBk had an invalid file reference.
+Line 161: Property Image in cmdShowPO had an invalid file reference.
+Line 195: Property Picture in Image1 had an invalid file reference.
+Line 235: Property Image in cmdUpdatePO had an invalid file reference.
+Line 322: Property Image in cmdExit had an invalid file reference.

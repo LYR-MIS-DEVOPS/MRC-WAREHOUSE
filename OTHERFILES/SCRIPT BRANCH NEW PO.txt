@@ -1,0 +1,36 @@
+
+-----sporder
+alter table sporder ADD STATUS VARCHAR(50);
+alter table sporder ADD QTYPN integer(11);
+alter table sporder ADD QTYRECPN INTEGER(11);
+alter table sporder ADD BACKORDERPN INTEGER(11);
+alter table sporder ADD PICKEDBY VARCHAR(50);
+
+
+-----spitr
+
+alter table spitr ADD UNITM VARCHAR(10);
+alter table spitr ADD COST DOUBLE(10);
+alter table spitr ADD DISCOUNT DOUBLE(5);
+alter table spitr ADD SEQNO INTEGER(11);
+
+
+---- add
+
+
+
+CREATE TABLE `sprecdiscrepancy` (
+  `SPRRNO` INTEGER(11) DEFAULT NULL,
+  `PACKINGNO` VARCHAR(20) COLLATE latin1_swedish_ci DEFAULT NULL,
+  `DATEREC` DATE NOT NULL,
+  `SPAREPARTID` INTEGER(11) DEFAULT NULL,
+  `QTY` INTEGER(5) DEFAULT NULL,
+  `GOOD` INTEGER(5) DEFAULT NULL,
+  `DAMAGE` INTEGER(5) DEFAULT NULL,
+  `LACKING` INTEGER(5) DEFAULT NULL,
+  `EXCESS` INTEGER(5) DEFAULT NULL,
+  `WRONGPN` INTEGER(5) DEFAULT NULL
+)ENGINE=MyISAM
+CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci';
+
+alter table sprecdiscrepancy add REMARKS VARCHAR(30);

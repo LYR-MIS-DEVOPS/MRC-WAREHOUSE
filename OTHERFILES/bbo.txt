@@ -1,0 +1,47 @@
+'flxBBO.SetFocus
+            For i = flxBBO.Rows - 1 To 1 Step -1
+                If flxBBO.TextMatrix(i, 13) <> "" Then
+                
+                    Qry = "SELECT spitr.REFERENCE, spitr.TRANSDATE, spitr.RECEIVE, spitr.TRANSTYPE, spitr.SPAREPARTID " & _
+                            "From spitr Where spitr.TRANSDATE >= '" & Format(dFrom.Value, "yyyy-mm-dd") & "' AND spitr.TRANSDATE <= '" & Format(dTo.Value, "yyyy-mm-dd") & "' AND " & _
+                            "spitr.SPAREPARTID = " & Val(flxBBO.TextMatrix(i, 13)) & " AND (spitr.TRANSTYPE = 'RECEIVE' OR spitr.TRANSTYPE = 'RECTEMP')"
+                    
+            
+                With rsRecDtls
+                    .Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+                         If .RecordCount > 0 Then
+                            .MoveFirst
+                            flxRecDtls.Rows = 1
+                            Do While Not .EOF
+                                                                
+                                flxRecDtls.AddItem vbTab & !REFERENCE & vbTab & !TRANSDATE & vbTab & !TRANSTYPE & vbTab & IIf(!TRANSTYPE = "RECEIVE", !RECEIVE, "") & vbTab & IIf(!TRANSTYPE = "TEMPREC", "", !RECEIVE) & vbTab & !SPAREPARTID
+                                
+                                .MoveNext
+                            Loop
+                            
+                            For recRow = 1 To flxRecDtls.Rows - 1
+                                If recRow = 1 Then
+                                    flxBBO.TextMatrix(i, 2) = flxRecDtls.TextMatrix(recRow, 1)
+                                    flxBBO.TextMatrix(i, 3) = flxRecDtls.TextMatrix(recRow, 2)
+                                    If flxRecDtls.TextMatrix(recRow, 3) = "RECEIVE" Then
+                                        flxBBO.TextMatrix(i, 6) = flxRecDtls.TextMatrix(recRow, 4)
+                                    Else
+                                        flxBBO.TextMatrix(i, 7) = flxRecDtls.TextMatrix(recRow, 5)
+                                    End If
+                                Else
+                                    flxBBO.TextMatrix(i, 2) = Replace(flxBBO.TextMatrix(i, 2), flxBBO.TextMatrix(i, 2), "@") & "^" & flxRecDtls.TextMatrix(recRow, 1)
+                                    flxBBO.TextMatrix(i, 3) = Replace(flxBBO.TextMatrix(i, 3), flxBBO.TextMatrix(i, 3), "@") & "^" & Format(flxRecDtls.TextMatrix(recRow, 2), "mm-dd-yyyy")
+                                    If flxRecDtls.TextMatrix(recRow, 3) = "RECEIVE" Then
+                                        flxBBO.TextMatrix(i, 6) = Val(flxBBO.TextMatrix(i, 6)) + Val(flxRecDtls.TextMatrix(recRow, 4))
+                                    Else
+                                        flxBBO.TextMatrix(i, 7) = Val(flxBBO.TextMatrix(i, 7)) + Val(flxRecDtls.TextMatrix(recRow, 5))
+                                    End If
+                                End If
+                            Next recRow
+                            
+                        End If
+                    .Close
+                End With
+                End If
+            Next i
+    Call ComputeALQ

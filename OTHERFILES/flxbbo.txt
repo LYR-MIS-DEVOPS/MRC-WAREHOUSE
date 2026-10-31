@@ -1,0 +1,79 @@
+rsRecDtls.Open Qry, LYRcon, adOpenKeyset, adLockOptimistic
+                        If rsRecDtls.RecordCount > 0 Then
+                            reserveQty = ComputeQty(flxBBO.TextMatrix(i, 15))
+                            For recRow = 1 To rsRecDtls.RecordCount
+                                    flxBBO.TextMatrix(i, 3) = Left(flxBBO.TextMatrix(i, 3), 1) & "*" & rsRecDtls!REFERENCE
+                                    flxBBO.TextMatrix(i, 4) = Left(flxBBO.TextMatrix(i, 4), 1) & "*" & rsRecDtls!TRANSDATE
+                                    If rsRecDtls!TRANSTYPE = "RECEIVE" Then
+                                        flxBBO.TextMatrix(i, 7) = Val(Replace(flxBBO.TextMatrix(i, 7), ",", "")) + IIf(Val(Replace(rsRecDtls!RECEIVE, ",", "")) = 0, 0, Val(Replace(rsRecDtls!RECEIVE, ",", "")))
+                                    ElseIf rsRecDtls!TRANSTYPE = "RECTEMP" Then
+                                        flxBBO.TextMatrix(i, 8) = Val(Replace(flxBBO.TextMatrix(i, 8), ",", "")) + Val(Replace(rsRecDtls!RECEIVE, ",", ""))
+                                    End If
+                                    If flxBBO.TextMatrix(i, 7) = "" Then
+                                        flxBBO.TextMatrix(i, 7) = 0
+                                    End If
+                                    If flxBBO.TextMatrix(i, 8) = "" Then
+                                        flxBBO.TextMatrix(i, 8) = 0
+                                    End If
+                                    flxBBO.TextMatrix(i, 10) = reserveQty
+                                    rsRecDtls.MoveNext
+                            Next recRow
+                        Else
+                                    flxBBO.TextMatrix(i, 3) = " ---- "
+                                    flxBBO.TextMatrix(i, 4) = " ---- "
+                                    If flxBBO.TextMatrix(i, 7) = "" Then
+                                        flxBBO.TextMatrix(i, 7) = 0
+                                    End If
+                                    If flxBBO.TextMatrix(i, 8) = "" Then
+                                        flxBBO.TextMatrix(i, 8) = 0
+                                    End If
+                                    flxBBO.TextMatrix(i, 10) = 0
+                        End If
+                    rsRecDtls.Close
+                        Pbar.Value = Pbar.Value + 1
+            Next i
+            Pbar.Visible = False
+            Call ComputeAVLQ
+            Call RevAvlZero
+
+Public Sub ComputeAVLQ() ' available quantity to allocate
+    Dim i As Integer
+    
+    With flxRecDtls
+        For i = 1 To .Rows - 1
+            If txtSPID.Text = .TextMatrix(i, 12) Then
+                .TextMatrix(i, 11) = (Val(.TextMatrix(i, 6)) + Val(.TextMatrix(i, 8))) - Val(.TextMatrix(i, 9))
+                .TextMatrix(i, 11) = Val(.TextMatrix(i, 11)) - Val(txtBackOrder.Text)
+                'Iif(Val(.TextMatrix(i, 11)) < 0, 0, .TextMatrix(i, 11))
+            Else
+                .TextMatrix(i, 11) = (Val(.TextMatrix(i, 6)) + Val(.TextMatrix(i, 8))) - Val(.TextMatrix(i, 9))
+            End If
+            
+            If txtSPID.Text = .TextMatrix(i, 12) Then
+                txtBackOrder.Text = Val(txtBackOrder.Text) + Val(.TextMatrix(i, 10))
+            Else
+                txtBackOrder.Text = .TextMatrix(i, 10)
+            End If
+            txtSPID.Text = .TextMatrix(i, 12)
+        Next i
+    End With
+    
+End Sub
+
+Public Sub ComputeAVLQ() ' available quantity to allocate
+    Dim i As Integer
+    
+    With flxRecDtls
+        For i = 1 To .Rows - 1
+            If txtSPID.Text = .TextMatrix(i, 12) Then
+                .TextMatrix(i, 11) = (Val(.TextMatrix(i, 6)) + Val(.TextMatrix(i, 8))) - Val(.TextMatrix(i, 9))
+                .TextMatrix(i, 11) = Val(.TextMatrix(i, 11)) - Val(txtBackOrder.Text)
+            Else
+                .TextMatrix(i, 11) = (Val(.TextMatrix(i, 6)) + Val(.TextMatrix(i, 8))) - Val(.TextMatrix(i, 9))
+            End If
+            txtSPID.Text = .TextMatrix(i, 12)
+            txtBackOrder.Text = .TextMatrix(i, 10)
+        Next i
+    End With
+    
+End Sub

@@ -1,0 +1,199 @@
+Private Sub cmdEvaluate_Click()
+    Dim rsSP As New ADODB.Recordset
+    
+    Dim MySP() As String, Mdl() As String, Qry As String
+    Dim myW As String, myW1 As String, myW2 As String, myW3 As String
+    Dim MySel As String, i As Long, r As Long, rM As Integer
+
+    myW1 = ""
+    If cboFind.Text <> "" Then
+        MySP = Split(cboFind.Text, " ")
+        For i = LBound(MySP) To UBound(MySP)
+            If myW1 = "" Then
+                'myW1 = "(SPAREPARTS.DESCRIPTION) Like '%" & MySP(i) & "%'"
+                
+                If UpDRef.Value = 0 Then
+                    myW1 = "PARTNUMBER Like \'%" & MySP(i) & "%\'"
+                Else
+                    myW1 = "DESCRIPTION Like \'%" & MySP(i) & "%\'"
+                End If
+            Else
+                'myW1 = myW1 & " AND (SPAREPARTS.DESCRIPTION) Like '%" & MySP(i) & "%'"
+                If UpDRef.Value = 0 Then
+                    myW1 = myW1 & " AND PARTNUMBER Like \'%" & MySP(i) & "%\'"
+                Else
+                    myW1 = myW1 & " AND DESCRIPTION Like \'%" & MySP(i) & "%\'"
+                End If
+            End If
+        Next i
+        myW = myW1
+    End If
+    If txtSuppCode.Text <> "" And myW <> "" Then
+        myW = myW & " AND SUPPLIERCODE = \'" & txtSuppCode.Text & "\'"
+    ElseIf txtSuppCode.Text <> "" And myW = "" Then
+        myW = "SUPPLIERCODE = '" & txtSuppCode.Text & "'"
+    ElseIf txtSuppCode.Text = "" And myW = "" Then
+        Exit Sub
+    End If
+    DoEvents
+    tabProcessing.Visible = True
+    Call ResizeCompleteHead
+    Call CollAlign
+    Call DisableButtonOnProcess(True)
+    Qry = "CALL mrcwarehouse.sp_podata('" & myW & "', '" & Format(SDfrom.Value, "yyyy-mm-dd") & "', '" & Format(SDto.Value, "yyyy-mm-dd") & "');"
+    Set rsSP = New ADODB.Recordset
+    If rsSP.State = adStateOpen Then rsSP.Close
+    With rsSP
+        DoEvents
+        .Open Qry, LYRcon, adOpenStatic
+        If .RecordCount = 1 Then
+            .MoveFirst
+            myW2 = .Fields(0)
+            myW3 = .Fields(1)
+            If myW2 = "Error" Then
+                MsgBox myW3, vbCritical + vbOKOnly, "DB ERROR"
+                .Close
+                flxSP.Clear
+                flxSP.Rows = 1
+                Exit Sub
+            End If
+        End If
+        If .RecordCount > 0 Then
+            flxSP.Rows = 1
+            Pbar.Value = 0
+            Pbar.Visible = True
+            Pbar.Max = .RecordCount + 1
+            .MoveFirst
+            For rM = 1 To .RecordCount
+                flxSP.Rows = rM
+                flxSP.TextMatrix(rM - 1, 1) = !PartNumber
+                flxSP.TextMatrix(rM - 1, 2) = !Description
+                flxSP.TextMatrix(rM - 1, 3) = !Ulas_QH
+                flxSP.TextMatrix(rM - 1, 4) = !Ulas_BO
+                flxSP.TextMatrix(rM - 1, 5) = !Ulas_SQ
+                flxSP.TextMatrix(rM - 1, 6) = !Ulas_ST
+                flxSP.TextMatrix(rM - 1, 11) = !Toril_QH
+                flxSP.TextMatrix(rM - 1, 12) = !Toril_BO
+                flxSP.TextMatrix(rM - 1, 13) = !Toril_SQ
+                flxSP.TextMatrix(rM - 1, 14) = !Toril_ST
+                flxSP.TextMatrix(rM - 1, 15) = !Van2_QH
+                flxSP.TextMatrix(rM - 1, 16) = !Van2_BO
+                flxSP.TextMatrix(rM - 1, 17) = !Van2_SQ
+                flxSP.TextMatrix(rM - 1, 18) = !Van2_ST
+                flxSP.TextMatrix(rM - 1, 19) = !Van56_QH
+                flxSP.TextMatrix(rM - 1, 20) = !Van56_BO
+                flxSP.TextMatrix(rM - 1, 21) = !Van56_SQ
+                flxSP.TextMatrix(rM - 1, 22) = !Van56_ST
+                flxSP.TextMatrix(rM - 1, 23) = !Panabo_QH
+                flxSP.TextMatrix(rM - 1, 24) = !Panabo_BO
+                flxSP.TextMatrix(rM - 1, 25) = !Panabo_SQ
+                flxSP.TextMatrix(rM - 1, 26) = !Panabo_ST
+                flxSP.TextMatrix(rM - 1, 31) = !Sob_QH
+                flxSP.TextMatrix(rM - 1, 32) = !Sob_BO
+                flxSP.TextMatrix(rM - 1, 33) = !Sob_SQ
+                flxSP.TextMatrix(rM - 1, 34) = !Sob_ST
+                flxSP.TextMatrix(rM - 1, 35) = !Gensan_QH
+                flxSP.TextMatrix(rM - 1, 36) = !Gensan_BO
+                flxSP.TextMatrix(rM - 1, 37) = !Gensan_SQ
+                flxSP.TextMatrix(rM - 1, 38) = !Gensan_ST
+                flxSP.TextMatrix(rM - 1, 39) = !Gante_QH
+                flxSP.TextMatrix(rM - 1, 40) = !Gante_BO
+                flxSP.TextMatrix(rM - 1, 41) = !Gante_SQ
+                flxSP.TextMatrix(rM - 1, 42) = !Gante_ST
+                flxSP.TextMatrix(rM - 1, 55) = !Van55_QH
+                flxSP.TextMatrix(rM - 1, 56) = !Van55_BO
+                flxSP.TextMatrix(rM - 1, 57) = !Van55_SQ
+                flxSP.TextMatrix(rM - 1, 58) = !Van55_ST
+                flxSP.TextMatrix(rM - 1, 59) = !WS_QH
+                flxSP.TextMatrix(rM - 1, 60) = !WS_BO
+                flxSP.TextMatrix(rM - 1, 61) = !WS_SQ
+                flxSP.TextMatrix(rM - 1, 62) = !WS_ST
+                flxSP.TextMatrix(rM - 1, 63) = !CAB_QH
+                flxSP.TextMatrix(rM - 1, 64) = !CAB_BO
+                flxSP.TextMatrix(rM - 1, 65) = !CAB_SQ
+                flxSP.TextMatrix(rM - 1, 66) = !CAB_ST
+                flxSP.TextMatrix(rM - 1, 71) = !WARE_QH
+                flxSP.TextMatrix(rM - 1, 72) = !WARE_BO
+                flxSP.TextMatrix(rM - 1, 73) = !WARE_ST 'NEW: IN-TRANSIT    old:6MSQ
+                flxSP.TextMatrix(rM - 1, 77) = Format(!cost, "#,##0.00")
+                flxSP.TextMatrix(rM - 1, 78) = IIf(IsNull(!ApplicModel), "", !ApplicModel)
+                flxSP.TextMatrix(rM - 1, 79) = !SPAREPARTID
+                flxSP.TextMatrix(rM - 1, 80) = IIf(IsNull(!DESCRIP2), "", !DESCRIP2)
+                DoEvents
+                Pbar.Value = Pbar.Value + 1
+                .MoveNext
+            Next rM
+            
+            flxSP.Visible = True
+            If ShowOpt Then
+                'flxSP.Top = 1920
+                flxSPH.Top = FrameOpt.Top + FrameOpt.Height
+                flxSP.Top = FrameOpt.Top + FrameOpt.Height + flxSPH.Height
+            Else
+                'flxSP.Top = 1080
+                flxSPH.Top = cmdOptHide.Top + cmdOptHide.Height + 100
+                flxSP.Top = FrameOpt.Height + flxSPH.Height
+            End If
+            cmdInsert.Top = flxSP.Top + flxSP.Height + 120
+            cmdOK.Top = flxSP.Top + flxSP.Height + 120
+            cmdCancel.Top = flxSP.Top + flxSP.Height + 120
+            Pbar.Top = flxSP.Top + flxSP.Height
+           ' Me.Height = fmAnotation.Height + cmdOK.Top + cmdOK.Height + 580
+        Else
+            flxSP.Clear
+            flxSP.Rows = 1
+        End If
+        .Close
+    End With
+    
+    If flxSP.Rows = 1 And flxSP.TextMatrix(0, 1) = "" Then Exit Sub
+    Call AddInCombo
+    Pbar.Value = 0
+    Pbar.Max = flxSP.Rows
+    For r = 0 To flxSP.Rows - 1
+        Pbar.Value = Pbar.Value + 1
+        Ulas6M = 0: Yamaha6M = 0: Toril6M = 0: Van16M = 0: Van26M = 0
+        Mrc16m = 0: Panabo6M = 0: BinosPol6M = 0: GenSan6M = 0: Mrc26M = 0: Ymarbel6m = 0
+        Stotomas6m = 0: Samal6m = 0: Van36m = 0: Wsale6m = 0: Cbntian6m = 0
+        'Total Branch
+        'SQ
+        flxSP.TextMatrix(r, 67) = Val(flxSP.TextMatrix(r, 3)) + Val(flxSP.TextMatrix(r, 7)) + Val(flxSP.TextMatrix(r, 11)) + Val(flxSP.TextMatrix(r, 15)) + Val(flxSP.TextMatrix(r, 19)) + Val(flxSP.TextMatrix(r, 23)) + Val(flxSP.TextMatrix(r, 27)) + Val(flxSP.TextMatrix(r, 31)) + Val(flxSP.TextMatrix(r, 35)) + Val(flxSP.TextMatrix(r, 39)) + Val(flxSP.TextMatrix(r, 43)) + Val(flxSP.TextMatrix(r, 47)) + Val(flxSP.TextMatrix(r, 51)) + Val(flxSP.TextMatrix(r, 55)) + Val(flxSP.TextMatrix(r, 59)) + Val(flxSP.TextMatrix(r, 63))
+        'BO
+        flxSP.TextMatrix(r, 68) = Val(flxSP.TextMatrix(r, 4)) + Val(flxSP.TextMatrix(r, 8)) + Val(flxSP.TextMatrix(r, 12)) + Val(flxSP.TextMatrix(r, 16)) + Val(flxSP.TextMatrix(r, 20)) + Val(flxSP.TextMatrix(r, 24)) + Val(flxSP.TextMatrix(r, 28)) + Val(flxSP.TextMatrix(r, 32)) + Val(flxSP.TextMatrix(r, 36)) + Val(flxSP.TextMatrix(r, 40)) + Val(flxSP.TextMatrix(r, 44)) + Val(flxSP.TextMatrix(r, 48)) + Val(flxSP.TextMatrix(r, 52)) + Val(flxSP.TextMatrix(r, 56)) + Val(flxSP.TextMatrix(r, 60)) + Val(flxSP.TextMatrix(r, 64))
+        'SQ
+        flxSP.TextMatrix(r, 69) = Val(flxSP.TextMatrix(r, 5)) + Val(flxSP.TextMatrix(r, 9)) + Val(flxSP.TextMatrix(r, 13)) + Val(flxSP.TextMatrix(r, 17)) + Val(flxSP.TextMatrix(r, 21)) + Val(flxSP.TextMatrix(r, 25)) + Val(flxSP.TextMatrix(r, 29)) + Val(flxSP.TextMatrix(r, 33)) + Val(flxSP.TextMatrix(r, 37)) + Val(flxSP.TextMatrix(r, 41)) + Val(flxSP.TextMatrix(r, 45)) + Val(flxSP.TextMatrix(r, 49)) + Val(flxSP.TextMatrix(r, 53)) + Val(flxSP.TextMatrix(r, 57)) + Val(flxSP.TextMatrix(r, 61)) + Val(flxSP.TextMatrix(r, 65))
+        'ST0ck transfer
+        flxSP.TextMatrix(r, 70) = Val(flxSP.TextMatrix(r, 6)) + Val(flxSP.TextMatrix(r, 10)) + Val(flxSP.TextMatrix(r, 14)) + Val(flxSP.TextMatrix(r, 18)) + Val(flxSP.TextMatrix(r, 22)) + Val(flxSP.TextMatrix(r, 26)) + Val(flxSP.TextMatrix(r, 30)) + Val(flxSP.TextMatrix(r, 34)) + Val(flxSP.TextMatrix(r, 38)) + Val(flxSP.TextMatrix(r, 42)) + Val(flxSP.TextMatrix(r, 46)) + Val(flxSP.TextMatrix(r, 50)) + Val(flxSP.TextMatrix(r, 54)) + Val(flxSP.TextMatrix(r, 58)) + Val(flxSP.TextMatrix(r, 62)) + Val(flxSP.TextMatrix(r, 66))
+        'Total Qty OnHand (TTLQH)
+        flxSP.TextMatrix(r, 74) = Val(flxSP.TextMatrix(r, 67)) + Val(flxSP.TextMatrix(r, 71))
+                'Branch Total Sales Qty(69) Less TtlQH(74)+Warehouse InTransit(73) + Warehouse BO(72)
+        spSOQ = Val(flxSP.TextMatrix(r, 69)) - (Val(flxSP.TextMatrix(r, 74)) + Val(flxSP.TextMatrix(r, 73)) + Val(flxSP.TextMatrix(r, 72)))
+        flxSP.TextMatrix(r, 75) = IIf(spSOQ < 0, 0, Int(spSOQ + 0.49))
+
+'        flxSP.TextMatrix(r, 74) = Ulas6M + Yamaha6M + Toril6M + Van16M + Van26M + Panabo6M + BinosPol6M + Mrc16m + GenSan6M + Mrc26M + Ymarbel6m + Stotomas6m + Samal6m + Van36m + Wsale6m + Cbntian6m + Val(flxSP.TextMatrix(r, 73))
+'
+'        'suggested order Qty.  = 6m Sales Gante+6m Sales Qty. Branch -( Branch QH + Main QH) -  Back Order Main only
+'        'Before Jan. 4, 2013
+'        'spSOQ = Val(flxSP.TextMatrix(r, 42)) - (Val(flxSP.TextMatrix(r, 35)) + Val(flxSP.TextMatrix(r, 39))) - Val(flxSP.TextMatrix(r, 40))
+'        'new Monthly Avg (6Mos) * Order Mos  - (QH+BO)
+'        spSOQ = ((Val(flxSP.TextMatrix(r, 74) / 6)) * Val(cbomos.Text)) - (Val(flxSP.TextMatrix(r, 67)) + Val(flxSP.TextMatrix(r, 71)) + Val(flxSP.TextMatrix(r, 72)))
+'        flxSP.TextMatrix(r, 75) = IIf(spSOQ < 0, 0, Int(spSOQ + 0.49))
+        
+    Next r
+    Pbar.Visible = False
+    flxSP.Col = 71: flxSP.Row = 0: flxSP.ColSel = 73: flxSP.RowSel = flxSP.Rows - 1: flxSP.FillStyle = flexFillRepeat: flxSP.CellBackColor = RGB(150, 230, 150)
+    If flxSP.Rows >= 1 Then
+        'If flxSP.TextMatrix(1, 3) <> "" Then
+                         'QTY on Hand
+        If flxSP.TextMatrix(0, 67) <> "" Then
+            flxSP.SetFocus
+        Else
+            cboFind.SetFocus
+        End If
+    Else
+        cboFind.SetFocus
+    End If
+    tabProcessing.Visible = False
+    Call DisableButtonOnProcess(False)
+
+End Sub

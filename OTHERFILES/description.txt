@@ -1,0 +1,13 @@
+SELECT 
+  spareparts.PARTNUMBER,
+  spareparts.DESCRIPTION,
+  spareparts.QTYONHAND,
+  spbranchdtl.`ORDER`,
+  spbranchdtl.ALLOCATEDQTY,
+  spareparts.LOCATION
+FROM
+  spbranchdtl
+  INNER JOIN spareparts ON (spbranchdtl.SPAREPARTID = spareparts.SPAREPARTID)
+WHERE
+  spbranchdtl.REFERENCE AND 
+  spbranchdtl.SPAREPARTID
